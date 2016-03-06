@@ -22,7 +22,7 @@ class explorer extends Controller{
         }else if(isset($_SESSION['this_path'])){
             $dir = _DIR_CLEAR($_SESSION['this_path']);
         }else{
-            $dir = '/';//首次进入系统,不带参数
+            $dir = '/';//For the first time into the system, with no arguments
             if ($GLOBALS['is_root']) $dir = WEB_ROOT;
         }
         $dir = rtrim($dir,'/').'/';
@@ -41,7 +41,7 @@ class explorer extends Controller{
         }
         $data = path_info_muti($info_list,$this->L['time_type_info']);
 
-        //属性查看，单个文件则生成临时下载地址。
+        //View the properties of a single file is generated temporary download addresses.
         if (count($info_list)==1 && 
             $info_list[0]['type']=='file') {            
             $data['download_path'] = $this->_make_file_proxy($info_list[0]['path']);
@@ -125,7 +125,7 @@ if (!is_writable($this->path)) {
             $_SESSION['history']=$hi->getHistory();
         }
 
-        //回收站不记录前进后退
+        //Trash does not record forward and back
         if($this->in['path'] != '*recycle*/' && 
             (!isset($this->in['type']) || $this->in['type'] !=='desktop')){
             $_SESSION['this_path']=$user_path;
@@ -149,8 +149,8 @@ if (!is_writable($this->path)) {
         _DIR_OUT($list);
         show_json($list);
     }
-    public function treeList(){//树结构
-        $app = $this->in['app'];//是否获取文件 传folder|file
+    public function treeList(){//Tree structure
+        $app = $this->in['app'];//Whether to acquire file transfer folder | file
         if (isset($this->in['type']) && $this->in['type']=='init'){
             $this->_tree_init($app);
         }
@@ -160,7 +160,7 @@ if (!is_writable($this->path)) {
             $path=_DIR($this->in['path'].$this->in['name']);
         }
         if (!is_readable($path)) show_json($path,false);
-        $list_file = ($app == 'editor'?true:false);//编辑器内列出文件
+        $list_file = ($app == 'editor'?true:false);//List the files in the Editor
         $list=$this->path($path,$list_file,true);
         function sort_by_key($a, $b){
             if ($a['name'] == $b['name']) return 0;
@@ -208,7 +208,7 @@ if (!is_writable($this->path)) {
 
         $list_root  = $this->path(_DIR(MYHOME),$check_file,true);
         $list_public = $this->path(PUBLIC_PATH,$check_file,true);
-        if ($check_file) {//编辑器
+        if ($check_file) {//editor
             $root = array_merge($list_root['folderlist'],$list_root['filelist']);
             $public = array_merge($list_public['folderlist'],$list_public['filelist']);
         }else{//文件管理器
@@ -272,7 +272,7 @@ $list = json_decode($this->in['list'],true);
         foreach ($list as $val) {
             $path_this = _DIR($val['path']);
             $filename  = get_path_this($path_this);
-            $filename = get_filename_auto(USER_RECYCLE.$filename,date(' h:i:s'));//已存在处理 创建副本
+            $filename = get_filename_auto(USER_RECYCLE.$filename,date(' h:i:s'));//Create a copy of an existing process
             if (@rename($path_this,$filename)) {
                 $success++;
             }else{
@@ -388,7 +388,7 @@ $new = rtrim($this->path,'/');
         foreach ($clipboard as $val) {
             $path_copy = _DIR($val['path']);
             $filename  = get_path_this($path_copy);
-            $filename = get_filename_auto($path_past.$filename);//已存在处理 创建副本
+            $filename = get_filename_auto($path_past.$filename);//Create a copy of an existing process
             if (@rename($path_copy,$filename)) {
                 $success++;
             }else{
@@ -497,7 +497,7 @@ $new = rtrim($this->path,'/');
     public function fileDownload(){
         file_put_out($this->path,true);
     }
-    //文件下载后删除,用于文件夹下载
+    //After deleting the file download for download folder
     public function fileDownloadRemove(){
         $path = rawurldecode(_DIR_CLEAR($this->in['path']));
         $path = USER_TEMP.iconv_system($path);
@@ -507,12 +507,12 @@ $new = rtrim($this->path,'/');
     public function zipDownload(){
         if(!file_exists(USER_TEMP)){
             mkdir(USER_TEMP);
-        }else{//清除未删除的临时文件，一天前
+        }else{//Clear temporary files are not deleted, the day before
             $list = path_list(USER_TEMP,true,false);
             $max_time = 3600*24;
             if ($list['filelist']>=1) {
                 for ($i=0; $i < count($list['filelist']); $i++) { 
-                    $create_time = $list['filelist'][$i]['mtime'];//最后修改时间
+                    $create_time = $list['filelist'][$i]['mtime'];//Last Modified
                     if(time() - $create_time >$max_time){
                         del_file($list['filelist'][$i]['path'].$list['filelist'][$i]['name']);
                     }
@@ -530,7 +530,7 @@ $new = rtrim($this->path,'/');
         for ($i=0; $i < $list_num; $i++) { 
             $zip_list[$i]['path'] = rtrim(_DIR($zip_list[$i]['path']),'/');
         }
-        //指定目录
+        //Specified directory
         $basic_path = $zip_path;
         if ($zip_path==''){
             $basic_path =get_path_father($zip_list[0]['path']);    
@@ -570,10 +570,10 @@ $new = rtrim($this->path,'/');
         $name = get_path_this($path);
         $name = substr($name,0,strrpos($name,'.'));
         $unzip_to=get_path_father($path).$name;
-        if (isset($this->in['path_to'])) {//解压到指定位置
+        if (isset($this->in['path_to'])) {//Unzip to a specified location
             $unzip_to = _DIR($this->in['path_to']);
         }
-        //所在目录不可写
+        //Directory not writable
         if (!is_writeable(get_path_father($path))){
             show_json($this->L['no_permission_write'],false);
         }
@@ -581,12 +581,12 @@ $new = rtrim($this->path,'/');
         if ($GLOBALS['is_root'] == 1){
             $result = $zip->extract(PCLZIP_OPT_PATH,$unzip_to,
                                 PCLZIP_OPT_SET_CHMOD,0777,
-                                PCLZIP_OPT_REPLACE_NEWER);//解压到某个地方,覆盖方式
+                                PCLZIP_OPT_REPLACE_NEWER);//Unzip to a place, cover the
         }else{
             $result = $zip->extract(PCLZIP_OPT_PATH,$unzip_to,
                                 PCLZIP_OPT_SET_CHMOD,0777,
                                 PCLZIP_CB_PRE_EXTRACT,"checkExtUnzip",
-                                PCLZIP_OPT_REPLACE_NEWER);//解压到某个地方,覆盖方式
+                                PCLZIP_OPT_REPLACE_NEWER);//Unzip to a place, cover the
         }
         if ($result == 0) {
             show_json("Error : ".$zip->errorInfo(true),fasle);
@@ -595,12 +595,12 @@ $new = rtrim($this->path,'/');
         }
     }
     public function image(){
-        if (filesize($this->path) <= 1024*10) {//小于10k 不再生成缩略图
+        if (filesize($this->path) <= 1024*10) {//Less than 10k longer to generate thumbnails
             file_put_out($this->path);
         }
         load_class('imageThumb');
         $image= $this->path;
-        $image_md5  = @md5_file($image);//文件md5
+        $image_md5  = @md5_file($image);//Md5 file
         if (strlen($image_md5)<5) {
             $image_md5 = md5($image);
         }
@@ -609,29 +609,29 @@ $new = rtrim($this->path,'/');
         if (!is_dir(DATA_THUMB)){
             mkdir(DATA_THUMB,"0777");
         }
-        if (!file_exists($image_thum)){//如果拼装成的url不存在则没有生成过
-            if ($_SESSION['this_path']==DATA_THUMB){//当前目录则不生成缩略图
+        if (!file_exists($image_thum)){//If assembled into the url does not exist, it does not generate too
+            if ($_SESSION['this_path']==DATA_THUMB){//Thumbnails will not be generated in the current directory
                 $image_thum=$this->path;
             }else {
                 $cm=new CreatMiniature();
                 $cm->SetVar($image,'file');
-                //$cm->Prorate($image_thum,72,64);//生成等比例缩略图
-                $cm->BackFill($image_thum,72,64,true);//等比例缩略图，空白处填填充透明色
+                //$cm->Prorate($image_thum,72,64);//Thumbnail generation ratio
+                $cm->BackFill($image_thum,72,64,true);//Proportional thumbnails, fill the space filled with a transparent color
             }
         }
-        if (!file_exists($image_thum) || filesize($image_thum)<100){//缩略图生成失败则用默认图标
+        if (!file_exists($image_thum) || filesize($image_thum)<100){//Thumbnail generation fails with the default icon
             $image_thum=STATIC_PATH.'images/image.png';
         }
-        //输出
+        //Export
         file_put_out($image_thum);
     }
 
-    // 远程下载
+    // Remote Download
     public function serverDownload() {
          if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {
             if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
         $uuid = 'download_'.$this->in['uuid'];
-        if ($this->in['type'] == 'percent') {//获取下载进度
+        if ($this->in['type'] == 'percent') {//Get the download progress
             //show_json($_SESSION[$uuid]);
             if (isset($_SESSION[$uuid])){
                 $info = $_SESSION[$uuid];
@@ -645,12 +645,12 @@ $new = rtrim($this->path,'/');
             }else{
                 show_json('',false);
             }
-        }else if($this->in['type'] == 'remove'){//取消下载;文件被删掉则自动停止
+        }else if($this->in['type'] == 'remove'){//Cancel download; files are deleted automatically stops
             del_file($_SESSION[$uuid]['path']);
             unset($_SESSION[$uuid]);
             show_json('',false);
         }
-        //下载
+        //download
         $save_path = _DIR($this->in['save_path']);
         if (!is_writeable($save_path)){
            show_json($this->L['no_permission_write'],false); 
@@ -662,7 +662,7 @@ $new = rtrim($this->path,'/');
             show_json($this->L['download_error_exists'],false);
         }
         $save_path = $save_path.urldecode($header['name']);
-        if (!checkExt($save_path)){//不允许的扩展名
+        if (!checkExt($save_path)){//Allowed extension
             $save_path = _DIR($this->in['save_path']).date().'.txt';
         }
         $save_path = get_filename_auto(iconv_system($save_path));
@@ -672,7 +672,7 @@ $new = rtrim($this->path,'/');
         session_write_close();
 
         if (file_download_this($url,$save_path_temp)){
-            if (@rename($save_path_temp,$save_path)) {//下载完后重命名
+            if (@rename($save_path_temp,$save_path)) {//After downloading rename
                 $name = get_path_this(iconv_app($save_path));
                 show_json($this->L['download_success'],true,$name);
             }else{
@@ -696,12 +696,12 @@ $new = rtrim($this->path,'/');
         load_class('mcrypt');
         $pass = $GLOBALS['config']['setting_system']['system_password'];
         $fid = Mcrypt::encode($file_path,$pass,$GLOBALS['config']['settings']['download_url_time']);
-        //文件对外界公开的地址;有效期在user_setting.php中设定；末尾追加文件名为了kod远程下载
+        //Documents outside public address; valid set of user setting.php; append the file name of the remote download kod
         $file_name = urlencode(get_path_this($file_path));
         return APPHOST.'index.php?user/public_link&fid='.$fid.'&file_name=/'.$file_name;
     }
 
-    //生成临时文件key
+    //Generate temporary key file
     public function officeView(){
         if (!file_exists($this->path)) {
             show_tips($this->L['not_exists']);
@@ -712,7 +712,7 @@ $new = rtrim($this->path,'/');
         }
         $file_url = $this->_make_file_proxy($this->path);
         $host = $_SERVER['HTTP_HOST'];
-        //微软接口调用的预览
+        //Preview Microsoft interface calls
         if (strstr($host,'10.10.') ||
             strstr($host,'192.168.')||
             strstr($host,'127.0.') ||
@@ -738,14 +738,14 @@ $new = rtrim($this->path,'/');
     }
 
 
-    //代理输出
+    //Agent output
     public function fileProxy(){
         file_put_out($this->path);
     }
 
     
     /**
-     * 上传,html5拖拽  flash 多文件
+     * Upload, html5 drag flash multiple files
      */
     public function fileUpload(){
         //show('error',false);
@@ -762,7 +762,7 @@ $new = rtrim($this->path,'/');
             }
         }
         //upload('file',$save_path);
-        //分片上传
+        //Fragment Upload
         $temp_dir = USER_TEMP;
         mk_dir($temp_dir);
         if (!is_writeable($temp_dir)) show_json($this->L['no_permission_write'],false);
@@ -799,7 +799,7 @@ $new = rtrim($this->path,'/');
         return $list;
     }
 
-    //获取文件列表&哦exe文件json解析
+    //Get a list of files & oh exe file parsing json
     private function path($dir,$list_file=true,$check_children=false){
         $path_hidden = $this->config['setting_system']['path_hidden'];
         $ex_name = explode(',',$path_hidden);
@@ -825,7 +825,7 @@ $new = rtrim($this->path,'/');
         }
         $list['filelist'] = $filelist_new;
         $list['folderlist'] = $folderlist_new;
-        //读写权限判断
+        //Read and write permissions judgment
         $list['path_type'] = 'readable';
         if (is_writable($dir)) {
             $list['path_type'] = 'writeable';

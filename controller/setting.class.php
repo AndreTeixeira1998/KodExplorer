@@ -13,7 +13,7 @@ class setting extends Controller{
     }
 
     /**
-     * 用户首页展示
+     * Home users Display
      */
     public function index() {
 		$this->tpl = TEMPLATE.'setting/';
@@ -21,7 +21,7 @@ class setting extends Controller{
     }
 
     /**
-     * 用户首页展示
+     * Home users Display
      */
     public function slider() {
 		$this->tpl = TEMPLATE . 'setting/slider/';
@@ -40,7 +40,7 @@ class setting extends Controller{
     }
 
 
-    //管理员  系统设置全局数据
+    //System administrator to set global data
     public function system_setting(){
         $setting_file = USER_SYSTEM.'system_setting.php';
         $data = json_decode($this->in['data'],true);
@@ -56,19 +56,19 @@ class setting extends Controller{
             }
         }
         //$setting['menu'] = $GLOBALS['config']['setting_menu_default'];
-        //为了保存更多的数据；不直接覆盖文件 $data->setting_file;
+        //In order to save more data; not overwrite file $data->setting_file;
         fileCache::save($setting_file,$setting);
         show_json($this->L['success']);
         //show_json($setting);
     }
 
     /**
-     * 参数设置
-     * 可以同时修改多个：key=a,b,c&value=1,2,3
+* parameter settings
+      * You can edit multiple: key = a, b, c & value = 1,2,3
      */
     public function set(){
         $file = $this->config['user_seting_file'];
-        if (!is_writeable($file)) {//配置不可写
+        if (!is_writeable($file)) {//Configuration can not be written
             show_json($this->L['no_permission_write_file'],false);
         }
         $key   = $this->in['k'];

@@ -15,7 +15,7 @@
 
 function P($path){return str_replace('\\','/',$path);}
 $web_root = str_replace(P($_SERVER['SCRIPT_NAME']),'',P(dirname(dirname(__FILE__))).'/index.php').'/';
-if (substr($web_root,-10) == 'index.php/') {//解决部分主机不兼容问题
+if (substr($web_root,-10) == 'index.php/') {//Solve part of the host incompatibilities
     $web_root = P($_SERVER['DOCUMENT_ROOT']).'/';
 }
 function is_HTTPS(){  
@@ -26,7 +26,7 @@ function is_HTTPS(){
         return true;
     }elseif($_SERVER['HTTPS'] === 'on'){ //IIS
         return true;
-    }elseif($_SERVER['SERVER_PORT'] == 443){ //其他
+    }elseif($_SERVER['SERVER_PORT'] == 443){ //other
         return true;
     }
     return false;
@@ -35,39 +35,39 @@ function is_HTTPS(){
 define('WEB_ROOT',$web_root);
 define('HOST', (is_HTTPS() ? 'https://' :'http://').$_SERVER['HTTP_HOST'].'/');
 define('BASIC_PATH',    P(dirname(dirname(__FILE__))).'/');
-define('APPHOST',       HOST.str_replace(WEB_ROOT,'',BASIC_PATH));//程序根目录
-define('TEMPLATE',		BASIC_PATH .'template/');	//模版文件路径
-define('CONTROLLER_DIR',BASIC_PATH .'controller/'); //控制器目录
-define('MODEL_DIR',		BASIC_PATH .'model/');		//模型目录
-define('LIB_DIR',		BASIC_PATH .'lib/');		//库目录
-define('FUNCTION_DIR',	LIB_DIR .'function/');		//函数库目录
-define('CLASS_DIR',		LIB_DIR .'class/');			//内目录
-define('CORER_DIR',		LIB_DIR .'core/');			//核心目录
-define('DATA_PATH',     BASIC_PATH .'data/');       //用户数据目录
-define('LOG_PATH',      DATA_PATH .'log/');         //日志目录
-define('USER_SYSTEM',   DATA_PATH .'system/');      //用户数据存储目录
-define('DATA_THUMB',    DATA_PATH .'thumb/');       //缩略图生成存放
-define('LANGUAGE_PATH', DATA_PATH .'i18n/');        //多语言目录
+define('APPHOST',       HOST.str_replace(WEB_ROOT,'',BASIC_PATH));//Root directory
+define('TEMPLATE',		BASIC_PATH .'template/');	//Template file path
+define('CONTROLLER_DIR',BASIC_PATH .'controller/'); //Controller directory
+define('MODEL_DIR',		BASIC_PATH .'model/');		//Model Directory
+define('LIB_DIR',		BASIC_PATH .'lib/');		//Library Directory
+define('FUNCTION_DIR',	LIB_DIR .'function/');		//Library catalog
+define('CLASS_DIR',		LIB_DIR .'class/');			//In the catalog
+define('CORER_DIR',		LIB_DIR .'core/');			//Core directory
+define('DATA_PATH',     BASIC_PATH .'data/');       //User data directory
+define('LOG_PATH',      DATA_PATH .'log/');         //Log Directory
+define('USER_SYSTEM',   DATA_PATH .'system/');      //User data storage directory
+define('DATA_THUMB',    DATA_PATH .'thumb/');       //Thumbnail generation storage
+define('LANGUAGE_PATH', DATA_PATH .'i18n/');        //Multi-language directory
 
-define('STATIC_JS','app');  //_dev(开发状态)||app(打包压缩)
-define('STATIC_LESS','css');//less(开发状态)||css(打包压缩)
-define('STATIC_PATH',"./static/");//静态文件目录
-//define('STATIC_PATH','http://static.kalcaddle.com/static/');//静态文件统分离,可单独将static部署到CDN
+define('STATIC_JS','app');  //dev (development status) || app (compressed package)
+define('STATIC_LESS','css');//less (development status) || css (compressed package)
+define('STATIC_PATH',"./static/");//Static file directory
+//define('STATIC_PATH','http://static.kalcaddle.com/static/');//Static file system separated individually to deploy static CDN
 
 /*
- 可以自定义【用户目录】和【公共目录】;移到web目录之外，
- 可以使程序更安全, 就不用限制用户的扩展名权限了;
+You can customize the user directory [directory] and [public]; move beyond the web directory,
+  Can make the program more secure, do not limit the extension of the rights of users;
  */
-define('USER_PATH',     DATA_PATH .'User/');        //用户目录
-//自定义用户目录；需要先将data/User移到别的地方 再修改配置，例如：
+define('USER_PATH',     DATA_PATH .'User/');        //User Directory
+//Custom user directory; you need to first data / User to move somewhere else and then modify the configuration, for example:
 //define('USER_PATH',   DATA_PATH .'/Library/WebServer/Documents/User');
-define('PUBLIC_PATH',   DATA_PATH .'public/');     //公共目录
-//公共共享目录,读写权限跟随用户目录的读写权限 再修改配置，例如：
+define('PUBLIC_PATH',   DATA_PATH .'public/');     //Public directory
+//Public shared directory, read and write permission to follow the user directory and then read and write permissions to modify the configuration, for example:
 //define('PUBLIC_PATH','/Library/WebServer/Documents/Public/');
 
 /*
- * office服务器配置；默认调用的微软的接口，程序需要部署到外网。
- * 本地部署weboffice 引号内填写office解析服务器地址 形如:  http://---/view.aspx?src=
+* Office server configuration; the default call Microsoft interface, the program needs to be deployed to the external network.
+  * Fill in the local office deployment weboffice quotes resolve the server address of the form: http:? //---/view.aspx Src =
  */
 define('OFFICE_SERVER',"https://view.officeapps.live.com/op/view.aspx?src=");
 
@@ -82,14 +82,14 @@ include(FUNCTION_DIR.'common.function.php');
 include(BASIC_PATH.'config/setting.php');
 include(BASIC_PATH.'config/version.php');
 
-//数据地址定义。
-$config['pic_thumb']	= BASIC_PATH.'data/thumb/';		// 缩略图生成存放地址
-$config['cache_dir']	= BASIC_PATH.'data/cache/';		// 缓存文件地址
-$config['app_startTime'] = mtime();         			//起始时间
+//Data address is defined.
+$config['pic_thumb']	= BASIC_PATH.'data/thumb/';		// Thumbnail generation storage address
+$config['cache_dir']	= BASIC_PATH.'data/cache/';		// Cache file Address
+$config['app_startTime'] = mtime();         			//Start Time
 
-//系统编码配置
-$config['app_charset']	 ='utf-8';			//该程序整体统一编码
-$config['check_charset'] = 'ASCII,UTF-8,GBK';//文件打开自动检测编码
+//Coding System Configuration
+$config['app_charset']	 ='utf-8';			//The program as a whole unified coding
+$config['check_charset'] = 'ASCII,UTF-8,GBK';//Open the file encoding auto-detection
 //when edit a file ;check charset and auto converto utf-8;
 if (strtoupper(substr(PHP_OS, 0,3)) === 'WIN') {
 	$config['system_os']='windows';
@@ -106,7 +106,7 @@ if(isset($in['PHPSESSID'])){//office edit post
 
 @session_start();
 check_post_many();
-session_write_close();//避免session锁定问题;之后要修改$_SESSION 需要先调用session_start()
+session_write_close();//Avoid session locking problems; $ _SESSION need to be modified after the first call session_start ()
 $config['autorun'] = array(
 	array('controller'=>'user','function'=>'loginCheck'),
     array('controller'=>'user','function'=>'authCheck')

@@ -67,7 +67,7 @@ define(function(require, exports) {
 		});
 	};
 
-	// 拖拽——移动
+	// Drag - Mobile
 	var _bindDrag = function(){
 		var $self,$tabs,$drag,
 			isDraging = false,
@@ -78,11 +78,11 @@ define(function(require, exports) {
 			tab_margin= 0,
 			tab_parent_width= 0,
 			tab_parent_left = 0,
-			current_animate_id;	//标签切换，当前动画所在的标签
+			current_animate_id;	//Label switching, where the current animation label
 		$('.task_tab .tab').die('mousedown').live('mousedown',function(e){
 			$self = $(this);
 			isDraging = true;
-			//事件 在 window之外操作，继续保持。
+			//Events outside window operation, continue.
 			if(this.setCapture) this.setCapture();
 			$(document).mousemove(function(e) {__dragMove(e);});
 			$(document).one('mouseup',function(e) {				
@@ -122,20 +122,20 @@ define(function(require, exports) {
 			var left = e.clientX - first_left + box_left;
 			if (left < tab_parent_left 
 				|| left > tab_parent_left+tab_parent_width-tab_width){
-				return;// 拖出边界则不处理
+				return;// Drag the border does not process
 			}
 			$drag.css('left',left);
 			$tabs.each(function(i) {
 				var t_left = $(this).get(0).getBoundingClientRect().left;
 				if (left > t_left && left < t_left+tab_width/2+tab_margin){
 					if ($self.attr('id') == $(this).attr('id')) {
-						return;//当前区域移动，没有超过左右过半
+						return;//The current area of the mobile, no more than about half
 					}
 					__change($(this).attr('id'),'left');
 				}
 				if (left > t_left-tab_width/2+tab_margin && left < t_left){
 					if ($self.attr('id') == $(this).attr('id')) {
-						return;//当前区域移动，没有超过左右过半
+						return;//The current area of the mobile, no more than about half
 					}
 					__change($(this).attr('id'),'right');
 				}
@@ -143,12 +143,12 @@ define(function(require, exports) {
 		};
 		// 标签交换位置
 		var __change  = function(id,change){
-			//chrome标签类似动画，动画进行中，，且为当前标签动画则继续	
+			//chrome Similar tags animation, animation in the current label, and animation continues
 			if ($self.is(":animated") 
 				&& current_animate_id == id){
 				return;
 			}
-			//处理上次动画结束事物
+			//The last thing the animation process ends
 			current_animate_id = id;
 			$self.stop(true,true);
 			$('.insertTemp').remove();
@@ -195,7 +195,7 @@ define(function(require, exports) {
 		var full_width	= $('.task_tab .tabs').width()-50;
 		var count		= $tabs.length;
 		
-		//不用变化的个数				
+		//Do not change the number of		
 		var max_count = Math.floor(full_width/max_width_all);
 		if (count > max_count) {
 			reset_width = Math.floor(full_width/count)-12;
@@ -221,14 +221,14 @@ define(function(require, exports) {
 		_resetWidth('add');
 		dialogs[id] = {id:id,name:name};
 	};
-	//选中
+	//Select
 	var _focus = function(selectID) {
-		//添加最初标签，或者标签不存在
+		//Initially add tags, or tags do not exist
 		$('.task_tab .this').removeClass('this');
 		$('.task_tab #'+selectID).addClass('this');
 		dialog_focus_id = selectID;
 	};
-	//删除
+	//delete
 	var _close = function(selectID) {
 		delete dialogs[selectID];
 		$('.task_tab #'+selectID).animate({width:0},animate_time,function(){
@@ -241,7 +241,7 @@ define(function(require, exports) {
 	};
 
 	//----------------------------------------
-	//交互只能完成基本功能，如果同时调用对话框，会形成死循环。
+	//Interaction can only complete the basic functions, if at the same time call the dialog, it will form a loop.
 	return {
 		add:_add,
 		focus:_focus,
@@ -276,7 +276,7 @@ define(function(require, exports) {
 	editor.getSession().setUseWrapMode(true);
 	editor.setDragDelay(10);
 	editor.setFontSize(14);
-	editor.setShowPrintMargin(false);//显示固定宽度
+	editor.setShowPrintMargin(false);//Display fixed-width
 	editor.commands.addCommand({
 		name: 'editSave',
 		bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
@@ -284,7 +284,7 @@ define(function(require, exports) {
 			console.log(editor.getValue());
 		}
 	});	
-	//自动补全
+	//Autocomplete
     editor.setOptions({
         enableBasicAutocompletion:true,
         enableSnippets: true,
@@ -296,21 +296,21 @@ define(function(require, exports) {
 
 
 	//editor.setValue('asdf');
-	//editor.redo();//反撤销
-	//editor.undo();//撤销
-	//editor.toLowerCase();选中内容转换成小写
+	//editor.redo(); //Anti revocation
+	//editor.undo(); //Revocation
+	//editor.toLowerCase(); //Select content converted to lowercase
 	//editor.toUpperCase();
-	//editor.setShowInvisibles(true);//显示不可见字符
-	//editor.navigateTo(7,0);//跳转到指定行，并且显示到可视区域内
+	//editor.setShowInvisibles(true); // Show invisible characters
+	//editor.navigateTo(7,0); //Jump to a specific row, and to the visual display region
 
-	//匹配参数 \([\w,\s\*\[\]\<\>&]*\)  
-	//匹配c函数修饰与返回值：([\w*]+\s+)+\*? 
+	//Matching parameters \ ([\ w, \ s \ * \ [\] \ <\> &] * \) 
+	//C modification and matching function return value: ([\ w *] + \ s +) + \ *?
 	var language_match={
 		"php":[//ok
 			{
 				reg:/\s*function\s+(\w*)\s*\(.*\)*/g,
 				reg_name:/.*function\s+(\w*)\s*\(/,
-				reg_index:1,//name对应匹配的位置eg:\1
+				reg_index:1,//name Corresponding to matching positions eg: \ 1
 				type:'function'
 			},
 			{
@@ -442,7 +442,7 @@ define(function(require, exports) {
 		]
 	};
 
-	//正则匹配查找；并定位字符所在位置。
+	//On a regular match lookup; and locate character location.
 	function reg_exec(str,reg_info){
 		var match_list = str.match(reg_info.reg);
 		if (!match_list) return;
@@ -456,8 +456,8 @@ define(function(require, exports) {
 			info.the_match = match_list[i];			
 			var match_name = info.the_match.match(reg_info.reg_name);
 			//var match_name = reg_info.reg_name.exec(info.the_match);
-			if (match_name.length<2 || !match_name[reg_info.reg_index]){//匹配出错则跳过
-				//console.log('跳过',match_name);
+			if (match_name.length<2 || !match_name[reg_info.reg_index]){//Matching error skip
+				//console.log('jump over',match_name);
 				continue;
 			}
 
@@ -468,7 +468,7 @@ define(function(require, exports) {
 			info.pos_end = info.pos_start+info.name.length;
 
 			console.log(info.name,'----',match_name,'-----',info.the_match,reg_info.reg_name);
-			//从剩下的str中匹配
+			//From the rest of the match in str
 			str_start=str_start + match_pos+info.the_match.length;
 			current_str = str.substr(str_start);
 			info.type = reg_info.type;
@@ -482,7 +482,7 @@ define(function(require, exports) {
 		if (typeof(language_match[type]) == 'undefined') return;
 		var reg_match = language_match[type];
 		var match_result = [];
-		//匹配多个类型
+		//Match multiple types
 		for (var i = 0; i < reg_match.length; i++) {
 			var match_type = reg_exec(string,reg_match[i]);			
 			if (match_type) {
@@ -490,24 +490,24 @@ define(function(require, exports) {
 			}
 		}
 
-		//排序
+		//Sequence
 		match_result.sort(function(a, b) {
 			var filed = 'pos_start';
 		    if (a[filed] < b[filed]) { return -1; }
 		    if (a[filed] >= b[filed]) { return 1; }
 		});
 
-		//根据在字符串的位置，定位行列数
+		//Depending on the position in the string, locating ranks number
 		var str_arr = string.split('\n');
 		var str_arr_len = str_arr.length;
-		var match_index = 0,//函数列表的位置
-			info = match_result[match_index],//函数列表位置pose
-			str_pose=0;//字符串截止到当前行当前位置
+		var match_index = 0,//Location function list
+			info = match_result[match_index],//Function list position pose
+			str_pose=0;//As of the current line of the current string position
 		for (var line = 0;line<str_arr_len;line++){
 			if (!info) break;
 			if (info.pos_start >= str_pose && 
 				info.pos_start<=str_pose+str_arr[line].length) {
-				match_result[match_index].range = {//range 追加到info
+				match_result[match_index].range = {//info added to the range
 					start:{row:line,column:info.pos_start-str_pose},
 					end:  {row:line,column:info.pos_end-str_pose}
 				};
@@ -520,7 +520,7 @@ define(function(require, exports) {
 		return match_result;
 	}
 
-	//edit.js  _resetWidth  167行；没有break；
+	//edit.js  _resetWidth  167 Line; no break;
 	function test_run(i,arr) {		
 		if (i>=arr.length) return;
 		setTimeout(function () {

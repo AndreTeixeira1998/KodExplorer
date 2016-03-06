@@ -14,7 +14,7 @@ class app extends Controller{
     }
 
     /**
-     * 用户首页展示
+     * Home users Display
      */
     public function index() {
         $this->display(TEMPLATE.'app/index.php');
@@ -46,7 +46,7 @@ class app extends Controller{
     }
 
     /**
-     * 用户app 添加、编辑
+     * App user to add, edit
      */
     public function user_app() {
         $path = _DIR($this->in['path']);
@@ -65,7 +65,7 @@ class app extends Controller{
     }
 
     /**
-     * 获取列表
+     * Get List
      */
     public function get() {
         $list = array();
@@ -79,7 +79,7 @@ class app extends Controller{
     }
 
     /**
-     * 添加
+     * Add to
      */
     public function add() {  
          if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {
@@ -92,10 +92,10 @@ class app extends Controller{
     }
 
     /**
-     * 编辑
+     * edit
      */
     public function edit() {
-        //查找到一条记录，修改为该数组
+        //Find a record, modified to the array
          if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {
             if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
 if($this->sql->replace_update(
@@ -107,7 +107,7 @@ if($this->sql->replace_update(
 header('Location: 403.php');}
     }
     /**
-     * 删除
+     * delete
      */
     public function del() {
          if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {

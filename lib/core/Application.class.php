@@ -7,17 +7,17 @@
 */
 
 /**
- * 程序路由处理类
- * 这里类判断外界参数调用内部方法
+* Route program processing class
+  * This class is determined outside calls an internal method parameters
  */
 class Application {
-	public $default_controller = null;	//默认的类名
-	public $default_do = null;			//默认的方法名
-	public $sub_dir ='';				//控制器子目录
-	public $model = '';				//控制器对应模型  对象。
+	public $default_controller = null;	//The default class name
+	public $default_do = null;			//The default method name
+	public $sub_dir ='';				//The controller subdirectory
+	public $model = '';				//The controller corresponds to the model object.
 	
 	/**
-	 * 设置默认的类名
+	 * Set the default class name
 	 * @param string $default_controller 
 	 */
 	public function setDefaultController($default_controller){
@@ -25,7 +25,7 @@ class Application {
 	} 
 
 	/**
-	 * 设置默认的方法名
+	 * Set the default method name
 	 * @param string $default_action 
 	 */
 	public function setDefaultAction($default_action){
@@ -33,7 +33,7 @@ class Application {
 	} 
 
 	/**
-	 * 设置控制器子目录
+	 * Set the controller subdirectory
 	 * @param string $dir 
 	 */
 	public function setSubDir($dir){
@@ -41,9 +41,9 @@ class Application {
 	} 
 
 	/**
-	 * 运行controller 的方法
-	 * @param $class , controller类名。
-	 * @param $function , 方法名
+	 * Run controller method
+	 * @param $class , controller The class name。
+	 * @param $function , Method name
 	 */
 	public function appRun($class,$function){
 		$sub_dir = $this -> sub_dir ? $this -> sub_dir . '/' : '';
@@ -64,7 +64,7 @@ class Application {
 
 
 	/**
-	 * 运行自动加载的控制器
+	 * The controller runs automatically load
 	 */
 	private function autorun(){
 		global $config; 
@@ -76,7 +76,7 @@ class Application {
 	}
 
 	/**
-	 * 调用实际类和方式
+	 * Called entity classes and methods
 	 */
 	public function run(){
 		$URI = $GLOBALS['in']['URLremote'];
@@ -84,7 +84,7 @@ class Application {
 		if (!isset($URI[1]) || $URI[1] == '') $URI[1] = $this->default_action;
 		define('ST',$URI[0]);
 		define('ACT',$URI[1]);
-		//自动加载运行类。
+		//Automatically load and run the class.
 		$this->autorun();
 		$this->appRun(ST,ACT);
 	}

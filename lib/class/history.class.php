@@ -8,21 +8,21 @@
 
 
 /**
-* 历史记录操作类
-* 传入或者构造一个数组。形如:
-* array(
-* 	'history_num'=>20,	//队列节点总共个数
-* 	'first'=>0,			//起始位置,从0开始。数组索引值
-* 	'last'=>0,			//终点位置，从0开始。
-* 	'back'=>0,			//从first位置倒退了多少步，差值。
-* 	'history'=>array(	//数组，存放操作队列。
-* 		array('path'=>'D:/'),
-* 		array('path'=>'D:/www/'),
-* 		array('path'=>'E:/'),
-* 		array('path'=>'/home/')
-* 		……
-* 	)
-* )
+* Operation history class
+* Incoming or construct an array. Like this:
+* Array (
+* 'History_num' => 20, // total number of queue node
+* 'First' => 0, // starting position, starting from 0. Array index value
+* 'Last' => 0, // end position, starting from 0.
+* 'Back' => 0, // how many steps backwards from the first position, the difference.
+* 'History' => array (// array, store operation queue.
+* Array ( 'path' => 'D: /'),
+* Array ( 'path' => 'D: / www /'),
+* Array ( 'path' => 'E: /'),
+* Array ( 'path' => '/ home /')
+* ......
+*)
+*)
 */
 
 class history{
@@ -33,15 +33,15 @@ class history{
 	var $history=array();
 
 	function __construct($array=array(),$num=20){
-		if (!$array) {//数组为空.构造一个循环队列。
+		if (!$array) {//The array is empty. Construct a circular queue.
 			$history=array();
 			for ($i=0; $i < $num; $i++) {
 				array_push($history,array('path'=>''));
 			}
 			$array=array(
 				'history_num'=>$num,
-				'first'=>0,//起始位置
-				'last'=>0,//终点位置
+				'first'=>0,//starting point
+				'last'=>0,//End position
 				'back'=>0,	
 				'history'=>$history
 			);
@@ -53,19 +53,19 @@ class history{
 		$this->history=$array['history'];	
 	}
 
-	function nextNum($i,$n=1){//环路下n一个值。和时钟环路类似。
+	function nextNum($i,$n=1){//n A lower value loop. And a clock loop is similar.
 		return ($i+$n)<$this->history_num ? ($i+$n):($i+$n-$this->history_num);
 	}
-	function prevNum($i,$n=1){//环路上一个值i。回退N个位置。
+	function prevNum($i,$n=1){//On the loop value ie. N fallback positions.
 		return ($i-$n)>=0 ? ($i-$n) : ($i-$n+$this->history_num);		
 	}
 
-	function minus($i,$j){//顺时针两点只差,i-j
+	function minus($i,$j){//Clockwise're just two points, i-j
 		return ($i > $j) ? ($i - $j):($i-$j+$this->history_num);
 	}
 
 
-	function getHistory(){//返回数组,用于保存或者序列化操作。
+	function getHistory(){//Returns an array for storing or sequential operations.
 		return array(
 			'history_num'=> $this->history_num,
 			'first'		 => $this->first,			
@@ -76,30 +76,30 @@ class history{
 	}
 
 	function add($path){
-		if ($path==$this->history[$this->first]['path']) {//和最后相同，则不记录
+		if ($path==$this->history[$this->first]['path']) {//And finally the same, no record
 			return 0;
 		}
-		if ($this->back!=0) {//有后退操作记录的情况下，进行插入。
+		if ($this->back!=0) {//Back recorded under operating conditions, for insertion.
 			$this->goedit($path);
 			return;
 		}		
-		if ($this->history[0]['path']=='') {//刚构造，不用加一.首位不前移
+		if ($this->history[0]['path']=='') {//Just structure, without adding a. Is not the first advance
 			$this->history[$this->first]['path']=$path;
 			return;
 		}else{
-			$this->first=$this->nextNum($this->first);//首位前移
+			$this->first=$this->nextNum($this->first);//First forward
 			$this->history[$this->first]['path']=$path;			
 		}
-		if ($this->first==$this->last) {//起始位置与终止位置相遇
-			$this->last=$this->nextNum($this->last);//末尾位置前移。
+		if ($this->first==$this->last) {//Start position and end position to meet
+			$this->last=$this->nextNum($this->last);//The end of the forward position.
 		}		
 	}
 
-	function goback(){//返回从first后退N步的地址。
+	function goback(){//Return to step back from the first N address.
 		$this->back+=1;
-		//最大后退步数为起点到终点之差(顺时针之差)
+		//Maximum number of setbacks as a starting point to the end point of difference (the difference between the clockwise)
 		$mins=$this->minus($this->first,$this->last);
-		if ($this->back >= $mins) {//退到最后点
+		if ($this->back >= $mins) {//Retreated to the last point
 			$this->back=$mins;
 		}
 
@@ -107,22 +107,22 @@ class history{
 		return $this->history[$pos]['path'];
 	}
 
-	function gonext(){//从first后退N步的地方前进一步。
+	function gonext(){//Back from the first N paces forward.
 		$this->back-=1;
-		if ($this->back<0) {//退到最后点
+		if ($this->back<0) {//Retreated to the last point
 			$this->back=0;
 		}
 		return $this->history[$this->prevNum($this->first,$this->back)]['path'];
 	}
-	function goedit($path){//后退到某个点，没有前进而是修改。则firs值为最后的值。
+	function goedit($path){//Back to a point, but did not advance to modify. The firs is the last value.
 		$pos=$this->minus($this->first,$this->back);
-		$pos=$this->nextNum($pos);//下一个		
+		$pos=$this->nextNum($pos);//next	
 		$this->history[$pos]['path']=$path;
 		$this->first=$pos;
 		$this->back=0;
 	}
 
-	//是否可以后退
+	//Take it back
 	function isback(){
 		if ($this->back==0 && $this->first==0 && $this->last==0) {
 			return 0;
@@ -132,31 +132,31 @@ class history{
 		}
 		return 0;
 	}
-	//是否可以前进
+	//I can forward
 	function isnext(){
 		if ($this->back>0) {
 			return 1;
 		}
 		return 0;
 	}
-	//取出最新纪录
+	//Remove the latest record
 	function getFirst(){
 		return $this->history[$this->first]['path'];
 	}
 }
 
-//include 'common.function.php';
-//$hi=new history(array(),6);//传入空数组，则初始化数组构造。
-//for ($i=0; $i <8; $i++) { 
-//	$hi->add('s'.$i);	
+// Include 'common.function.php';
+// $ Hi = new history (array (), 6); // pass an empty array, then initialize the array configuration.
+// For ($ i = 0; $ i <8; $ i ++) {
+// $ Hi-> add ( 's' $ i.);
 //}
-//pr($hi->goback());
-//pr($hi->gonext());
-//$hi->add('asdfasdf2');
-//pr($hi->getHistory());
+// Pr ($ hi-> goback ());
+// Pr ($ hi-> gonext ());
+// $ Hi-> add ( 'asdfasdf2');
+// Pr ($ hi-> getHistory ());
 
 
-//$ss=new history($hi->getHistory());//直接用数组构造。
-//$ss->add('asdfasdf');
-//$ss->goback();
-//pr($ss->getHistory());
+// $ Ss = new history ($ hi-> getHistory ()); // array constructors directly.
+// $ Ss-> add ( 'asdfasdf');
+// $ Ss-> goback ();
+// Pr ($ ss-> getHistory ());

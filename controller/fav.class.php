@@ -14,14 +14,14 @@ class fav extends Controller{
     }
 
     /**
-     * 获取收藏夹json
+     * Being favorites json
      */
     public function get() {
         show_json($this->sql->get());
     }
 
     /**
-     * 添加
+     * Add
      */
     public function add() {
         $res=$this->sql->add($this->in['name'],
@@ -35,10 +35,10 @@ class fav extends Controller{
     }
 
     /**
-     * 编辑
+     * Edit
      */
     public function edit() {
-        //查找到一条记录，修改为该数组
+        //Find a record, modified to the array
         $to_array=array(
             'name'=>$this->in['name_to'],
             'path'=>$this->in['path_to']
@@ -51,7 +51,7 @@ class fav extends Controller{
     }
 
     /**
-     * 删除
+     * Delete
      */
     public function del() {
         if($this->sql->delete($this->in['name'])){

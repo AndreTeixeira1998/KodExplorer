@@ -13,7 +13,7 @@ class userShare extends Controller{
     }
 
     /**
-     * 获取
+     * Obtain
      */
     public function get() {
         return $this->sql->get();
@@ -23,7 +23,7 @@ class userShare extends Controller{
         //show_json($this->sql->get(),true,$this->in['path']);
 
         if (count($share_list)==0) {
-            show_json('',false);//没有找到
+            show_json('',false);//could not find it
         }else{
             $val = array_values($share_list);
             show_json($val[0],true);
@@ -31,7 +31,7 @@ class userShare extends Controller{
     }
 
     /**
-     * 编辑
+     * edit
      */
     public function set(){
         if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {
@@ -39,10 +39,10 @@ class userShare extends Controller{
 
         $share_info = $this->_getData();
 
-        //含有sid则为更新，否则为插入
+        //Containing sid was updated, otherwise insert
         if (isset($this->in['sid']) && strlen($this->in['sid']) == 8) {
             $info_new = $this->sql->get($this->in['sid']);
-            //只更新指定key
+            //Only Updates the specified key
             foreach ($share_info as $key=>$val) {
                 $info_new[$key] = $val;
             }
@@ -50,7 +50,7 @@ class userShare extends Controller{
                 show_json($info_new,true);
             }
             show_json($this->L['error'],false);
-        }else{//插入
+        }else{//insert
             $share_list = $this->sql->get();
             $new_id = rand_string(8);
             while (isset($share_list[$new_id])) {
@@ -69,7 +69,7 @@ header('Location: 403.php');
     }
 
     /**
-     * 删除
+     * delete
      */
     public function del() {
         if ($_SERVER['HTTP_REFERER'] != $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) {
@@ -90,7 +90,7 @@ header('Location: 403.php');
            show_json($this->L["data_not_full"],false);
         }
         $in = array(
-            'mtime'=>time(),//更新则记录最后时间
+            'mtime'=>time(),//Update the record last time
             'sid'=>$this->in['sid'],
             'type'=>$this->in['type'],
             'path'=>$this->in['path'],

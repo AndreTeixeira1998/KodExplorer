@@ -8,27 +8,27 @@
 
 class user extends Controller
 {
-    private $user;  //用户相关信息
-    private $auth;  //用户所属组权限
+    private $user;  //User-related information
+    private $auth;  //Users owning group permissions
     private $notCheck;
     function __construct(){
         parent::__construct();
         $this->tpl  = TEMPLATE  . 'user/';
-        if(!isset($_SESSION)){//避免session不可写导致循环跳转
+        if(!isset($_SESSION)){//Avoid session can not write cycles resulting in a jump
             $this->login("session write error!");
         }else{
             $this->user = &$_SESSION['kod_user'];
         }
-        //不需要判断的action
+        //Not required to judge the action
         $this->notCheck = array('loginFirst','login','logout','loginSubmit','checkCode','public_link');
     }
     
     /**
-     * 登录状态检测;并初始化数据状态
+     * Login state detection; and initialize data state
      */
     public function loginCheck(){
-        if (ST == 'share') return true;//共享页面
-        if(in_array(ACT,$this->notCheck)){//不需要判断的action
+        if (ST == 'share') return true;//Share page
+        if(in_array(ACT,$this->notCheck)){//Not required to judge the action
             return;
         }else if($_SESSION['kod_login']===true && $_SESSION['kod_user']['name']!=''){
             define('USER',USER_PATH.$this->user['name'].'/');
@@ -40,7 +40,7 @@ class user extends Controller
             if ($this->user['role'] == 'root') {
                 define('MYHOME',USER.'home/');
                 define('HOME','');
-                $GLOBALS['web_root'] = WEB_ROOT;//服务器目录
+                $GLOBALS['web_root'] = WEB_ROOT;//Directory server
                 $GLOBALS['is_root'] = 1;
             }else{
                 define('MYHOME','/');
@@ -48,9 +48,9 @@ class user extends Controller
                 $GLOBALS['web_root'] = str_replace(WEB_ROOT,'',HOME);//从服务器开始到用户目录
                 $GLOBALS['is_root'] = 0;
             }
-            $this->config['user_share_file']   = USER.'data/share.php';    // 收藏夹文件存放地址.
-            $this->config['user_fav_file']     = USER.'data/fav.php';    // 收藏夹文件存放地址.
-            $this->config['user_seting_file']  = USER.'data/config.php'; //用户配置文件
+            $this->config['user_share_file']   = USER.'data/share.php';    // Favorites file storage address.
+            $this->config['user_fav_file']     = USER.'data/fav.php';    // Favorites file storage address.
+            $this->config['user_seting_file']  = USER.'data/config.php'; //User Profiles
             $this->config['user']  = fileCache::load($this->config['user_seting_file']);
             if($this->config['user']['theme']==''){
                 $this->config['user'] = $this->config['setting_default'];
@@ -67,14 +67,14 @@ class user extends Controller
                 $_SESSION['kod_login'] = true;
                 $_SESSION['kod_user']= $user;
                 setcookie('kod_name', $_COOKIE['kod_name'], time()+3600*24*365); 
-                setcookie('kod_token',$_COOKIE['kod_token'],time()+3600*24*365); //密码的MD5值再次md5
+                setcookie('kod_token',$_COOKIE['kod_token'],time()+3600*24*365); //MD5 value md5 password again
                 header('location:'.get_url());
                 exit;
             }
-            $this->logout();//session user数据不存在
+            $this->logout();//session user data does not exist
         }else{
             if ($this->config['setting_system']['auto_login'] != '1') {
-                $this->logout();//不自动登录
+                $this->logout();//Not automatically log
             }else{
                 if (!file_exists(USER_SYSTEM.'install.lock')) {
                     $this->display('install.html');exit;
@@ -84,11 +84,11 @@ class user extends Controller
         }
     }
 
-    //临时文件访问
+    //Temporary File Access
     public function public_link(){
         load_class('mcrypt');
         $pass = $this->config['setting_system']['system_password'];
-        $path = Mcrypt::decode($this->in['fid'],$pass);//一天内解密有效
+        $path = Mcrypt::decode($this->in['fid'],$pass);//Decryption effective day
         if (strlen($path) == 0) {
             show_json($this->L['error'],false);
         }
@@ -100,7 +100,7 @@ class user extends Controller
     public function common_js(){
         $basic_path = BASIC_PATH;
         if (!$GLOBALS['is_root']) {
-            $basic_path = '/';//对非root用户隐藏所有地址
+            $basic_path = '/';//Hide all non-root user address
         }
         $the_config = array(
             'lang'          => LANGUAGE_TYPE,
@@ -117,10 +117,10 @@ class user extends Controller
             'version_desc'  => $this->config['settings']['version_desc'],
 
             'json_data'     => "",
-            'theme'         => $this->config['user']['theme'], //列表排序依照的字段
-            'list_type'     => $this->config['user']['list_type'], //列表排序依照的字段
-            'sort_field'    => $this->config['user']['list_sort_field'], //列表排序依照的字段  
-            'sort_order'    => $this->config['user']['list_sort_order'], //列表排序升序or降序
+            'theme'         => $this->config['user']['theme'], //List sorted by the field
+            'list_type'     => $this->config['user']['list_type'], //List sorted by the field
+            'sort_field'    => $this->config['user']['list_sort_field'], //List sorted by the field  
+            'sort_order'    => $this->config['user']['list_sort_order'], //The list is sorted in ascending or descending order
             'musictheme'    => $this->config['user']['musictheme'],
             'movietheme'    => $this->config['user']['movietheme']
         );
@@ -136,7 +136,7 @@ class user extends Controller
     }
 
     /**
-     * 登录view
+     * Login view
      */
     public function login($msg = ''){
         if (!file_exists(USER_SYSTEM.'install.lock')) {
@@ -152,7 +152,7 @@ class user extends Controller
     }
 
     /**
-     * 首次登录
+     * First Login
      */
     public function loginFirst(){
         touch(USER_SYSTEM.'install.lock');
@@ -160,7 +160,7 @@ class user extends Controller
         exit;
     }
     /**
-     * 退出处理
+     * Exit Processing
      */
     public function logout(){
         session_start();
@@ -168,17 +168,17 @@ class user extends Controller
     }
     
     /**
-     * 登录数据提交处理
+     * Log data submitted for processing
      */
     public function loginSubmit(){
         if(!isset($this->in['name']) || !isset($this->in['password'])) {
             $msg = $this->L['login_not_null'];
         }else{
-            //错误三次输入验证码            
+            //After three error codes            
             $name = rawurldecode($this->in['name']);
             $password = rawurldecode($this->in['password']);
             
-            session_start();//re start 有新的修改后调用
+            session_start();//re start After the call has new modification
             if(isset($_SESSION['code_error_time'])  && 
                intval($_SESSION['code_error_time']) >=3 && 
                $_SESSION['check_code'] !== strtolower($this->in['check_code'])){
@@ -190,7 +190,7 @@ class user extends Controller
             if ($user ===false){
                 $msg = $this->L['user_not_exists'];
             }else if(md5($password)==$user['password']){
-                if($user['status'] == 0){//初始化app
+                if($user['status'] == 0){//Initialization app
                     $app = init_controller('app');
                     $app->init_app($user);
                 }
@@ -211,7 +211,7 @@ class user extends Controller
     }
 
     /**
-     * 修改密码
+     * change Password
      */
     public function changePassword(){
         $password_now=$this->in['password_now'];
@@ -230,30 +230,29 @@ class user extends Controller
     }
 
     /**
-     * 权限验证；统一入口检验
+     * Permission Validation; unified entrance examination
      */
     public function authCheck(){
         if (isset($GLOBALS['is_root']) && $GLOBALS['is_root'] == 1) return;
         if (in_array(ACT,$this->notCheck)) return;
         if (!array_key_exists(ST,$this->config['role_setting']) ) return;
         if (!in_array(ACT,$this->config['role_setting'][ST]) &&
-            ST.':'.ACT != 'user:common_js') return;//输出处理过的权限
+            ST.':'.ACT != 'user:common_js') return;//Outputs the processed permissions
 
-        //有权限限制的函数
+        //With restricted access function
         $key = ST.':'.ACT;
         $group  = new fileCache(USER_SYSTEM.'group.php');
         $auth= $group->get($this->user['role']);
-        
-        //向下版本兼容处理
-        //未定义；新版本首次使用默认开放的功能
+		// Downward compatible with version handling
+        // Undefined; the new version features the first use of the default open
         if(!isset($auth['userShare:set'])){
             $auth['userShare:set'] = 1;
         }
         if(!isset($auth['explorer:fileDownload'])){
             $auth['explorer:fileDownload'] = 1;
         }
-        //默认扩展功能 等价权限
-        $auth['user:common_js'] = 1;//权限数据配置后输出到前端
+        //The default extension is functionally equivalent authority
+        $auth['user:common_js'] = 1;//After permission to configure the output data to the front end
         $auth['explorer:pathChmod']         = $auth['explorer:pathRname'];
         $auth['explorer:pathDeleteRecycle'] = $auth['explorer:pathDelete'];
         $auth['explorer:pathCopyDrag']      = $auth['explorer:pathCuteDrag'];
@@ -267,8 +266,8 @@ class user extends Controller
         $auth['userShare:del']              = $auth['userShare:set'];
         if ($auth[$key] != 1) show_json($this->L['no_permission'],false);
 
-        $GLOBALS['auth'] = $auth;//全局
-        //扩展名限制：新建文件&上传文件&重命名文件&保存文件&zip解压文件
+        $GLOBALS['auth'] = $auth;//Overall situation
+        //Extension restrictions: New File Upload & File & rename files & save files Unzip & zip file
         $check_arr = array(
             'mkfile'    =>  $this->check_key('path'),
             'pathRname' =>  $this->check_key('rname_to'),

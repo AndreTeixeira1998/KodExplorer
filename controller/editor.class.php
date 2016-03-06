@@ -13,23 +13,23 @@ class editor extends Controller{
 		$this->tpl = TEMPLATE . 'editor/';
 	}
 
-	// 多文件编辑器
+	// Multi-file editor
 	public function index(){
 		$this->display('editor.php');
 	}
-	// 单文件编辑
+	// Single-file editor
 	public function edit(){
-		$this->assign('editor_config',$this->getConfig());//获取编辑器配置信息
+		$this->assign('editor_config',$this->getConfig());//Being editor configuration information
 		$this->display('edit.php');
 	}
 
-	// 获取文件数据
+	// Get file data
 	public function fileGet(){
 		$filename=_DIR($this->in['filename']);
 		if (!is_readable($filename)) show_json($this->L['no_permission_read'],false);
 		if (filesize($filename) >= 1024*1024*20) show_json($this->L['edit_too_big'],false);
 
-		$filecontents=file_get_contents($filename);//文件内容
+		$filecontents=file_get_contents($filename);//document content
 		$charset=get_charset($filecontents);
 		if ($charset!='' || $charset!='utf-8') {
 			$filecontents=mb_convert_encoding($filecontents,'utf-8',$charset);
@@ -64,7 +64,7 @@ class editor extends Controller{
 	}
 
 	/*
-	* 获取编辑器配置信息
+	* Being editor configuration information
 	*/
 	public function getConfig(){
 		$default = array(
@@ -76,7 +76,7 @@ class editor extends Controller{
 			'function_list' => 1
 		);
 		$config_file = USER.'data/editor_config.php';		
-		if (!file_exists($config_file)) {//不存在则创建
+		if (!file_exists($config_file)) {//It does not exist, create
 			$sql=new fileCache($config_file);
 			$sql->reset($default);
 		}else{
@@ -89,11 +89,11 @@ class editor extends Controller{
 		return json_encode($default);
     }
 	/*
-	* 获取编辑器配置信息
+	* Being editor configuration information
 	*/
 	public function setConfig(){
 		$file = USER.'data/editor_config.php';	
-        if (!is_writeable($file)) {//配置不可写
+        if (!is_writeable($file)) {//Configuration can not be written
             show_json($this->L['no_permission_write_file'],false);
         }
 		$key= $this->in['k'];
@@ -101,7 +101,7 @@ class editor extends Controller{
         if ($key !='' && $value != '') {
         	$sql=new fileCache($file);
         	if(!$sql->update($key,$value)){
-        		$sql->add($key,$value);//没有则添加一条
+        		$sql->add($key,$value);//Not then add a
         	}
             show_json($this->L["setting_success"]);
         }else{
@@ -111,12 +111,12 @@ class editor extends Controller{
 
     //-----------------------------------------------
 	/*
-	* 获取字符串编码
-	* @param:$ext 传入字符串
+	* Get string encoding
+	* @param:$ext Incoming string
 	*/
 	private function _get_charset(&$str) {
 		if ($str == '') return 'utf-8';
-		//前面检测成功则，自动忽略后面
+		//The success of the previously detected automatically ignore the back
 		$charset=strtolower(mb_detect_encoding($str,$this->config['check_charset']));
 		if (substr($str,0,3)==chr(0xEF).chr(0xBB).chr(0xBF)){
 			$charset='utf-8';

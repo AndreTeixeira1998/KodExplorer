@@ -1,31 +1,30 @@
 <?php 
 
 /**
- * 类名：CreatMiniature
- * 功能：生成多种类型的缩略图
- * 基本参数：$srcFile,$echoType
- * 方法用到的参数：
- * $toFile,生成的文件 * $toW,生成的宽  $toH,生成的高*
- * $bk1,背景颜色参数 以255为最高 * $bk2,背景颜色参数 * $bk3,背景颜色参数
- * 
- * 例子：
- * include('thumb.php');
- * $cm=new CreatMiniature();
- * $cm->SetVar('1.jpg','file');
- * $cm->Distortion('dis_bei.jpg',150,200);
-
- * $cm->Prorate('pro_bei.jpg',150,200);//附带切割
- * $cm->Cut('cut_bei.jpg',150,200);
- * $cm->BackFill('fill_bei.jpg',150,200);
+* Class name: Create Miniature 
+* Function: generate multiple types of thumbnail 
+* basic parameters: $ srcFile, $ echoType 
+* method used parameters: 
+* $ toFile, the resulting file 
+* $ toW, generated wide $ toH, generate high * 
+* $ bk1, background color parameter to 255 as the highest 
+* $ bk2, background color parameters * $ bk3, background color parameters * 
+* examples: * include ( 'thumb.php'); * $ cm = new CreatMiniature () ; 
+* $ cm-> SetVar ( '1.jpg', 'file'); 
+* $ cm-> Distortion ( 'dis_bei.jpg', 150,200); 
+* $ cm-> Prorate ( 'pro_bei.jpg', 150,200) ; 
+// incidental cutting 
+* $ cm-> cut ( 'cut_bei.jpg', 150,200); 
+* $ cm-> BackFill ( 'fill_bei.jpg', 150,200);
  */
 class CreatMiniature {
-	// 公共变量
-	var $srcFile = '';	//原图
-	var $echoType;		//输出图片类型，link--不保存为文件；file--保存为文件
-	var $im = '';		//临时变量
-	var $srcW = '';		//原图宽
-	var $srcH = '';		//原图高  
-	// 设置变量及初始化
+	// Public variables
+	var $srcFile = '';	//Artwork
+	var $echoType;		//Output image type, link-- not saved as a file; file-- saved as files
+	var $im = '';		//Temporary variable
+	var $srcW = '';		//Original width
+	var $srcH = '';		//Original highth  
+	// And set the variable initialization
 	function SetVar($srcFile, $echoType){
 		$this->srcFile = $srcFile;
 		$this->echoType = $echoType;
@@ -52,13 +51,13 @@ class CreatMiniature {
 		$this->srcW = ImageSX($this->im);
 		$this->srcH = ImageSY($this->im);
 	} 
-	// 生成扭曲型缩图
+	// Generating twisted Thumbnail
 	function Distortion($toFile, $toW, $toH){
 		$cImg = $this->CreatImage($this->im, $toW, $toH, 0, 0, 0, 0, $this->srcW, $this->srcH);
 		return $this->EchoImage($cImg, $toFile);
 		ImageDestroy($cImg);
 	} 
-	// 生成按比例缩放的缩图
+	// Generates scaled thumbnail
 	function Prorate($toFile, $toW, $toH){
 		$toWH = $toW / $toH;
 		$srcWH = $this->srcW / $this->srcH;
@@ -79,7 +78,7 @@ class CreatMiniature {
 			ImageDestroy($cImg);
 		} 
 	} 
-	// 生成最小裁剪后的缩图
+	// Thumbnail produce the smallest cropped
 	function Cut($toFile, $toW, $toH){
 		$toWH = $toW / $toH;
 		$srcWH = $this->srcW / $this->srcH;
@@ -96,7 +95,7 @@ class CreatMiniature {
 		ImageDestroy($cImg);
 		ImageDestroy($allImg);
 	} 
-	// 生成背景填充的缩图,默认用白色填充剩余空间，传入$isAlpha为真时用透明色填充
+	// It is filled with a transparent true color thumbnails generated background fill, to fill the remaining space with the default white to pass $ isAlpha
 	function BackFill($toFile, $toW, $toH,$isAlpha=false,$red=255, $green=255, $blue=255){
 		$toWH = $toW / $toH;
 		$srcWH = $this->srcW / $this->srcH;
@@ -117,11 +116,11 @@ class CreatMiniature {
 		}
 		
 
-		$fromTop = ($toH - $ftoH)/2;//从正中间填充
-		$backcolor = imagecolorallocate($cImg,$red,$green, $blue); //填充的背景颜色
-		if ($isAlpha){//填充透明色
+		$fromTop = ($toH - $ftoH)/2;//Filling from the middle
+		$backcolor = imagecolorallocate($cImg,$red,$green, $blue); //Filled with the background color
+		if ($isAlpha){//Filled with a transparent color
 			$backcolor=ImageColorTransparent($cImg,$backcolor);
-			$fromTop = $toH - $ftoH;//从底部填充
+			$fromTop = $toH - $ftoH;//Filling from the bottom
 		}		
 
 		ImageFilledRectangle($cImg, 0, 0, $toW, $toH, $backcolor);
@@ -156,7 +155,7 @@ class CreatMiniature {
 		} 
 		return $creatImg;
 	} 
-	// 输出图片，link---只输出，不保存文件。file--保存为文件
+	// Output image, link --- output only, without saving the file. file-- saved as files
 	function EchoImage($img, $to_File){
 		switch ($this->echoType) {
 			case 'link':return ImagePNG($img);break;				

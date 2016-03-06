@@ -7,8 +7,8 @@
 */
 
 /**
- * 模型抽象类
- * 一个关于各种模型的基本行为类，每个模型都必须继承这个类的方法
+ * Model abstract classes
+ * A class on basic behavior of various models, each model must inherit this class method
  */
 
 abstract class Model {
@@ -17,7 +17,7 @@ abstract class Model {
 	var $config;
 
 	/**
-	 * 构造函数
+	 * Constructor
 	 * @return Null 
 	 */
 	function __construct(){

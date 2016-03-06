@@ -15,21 +15,21 @@ class share extends Controller{
         parent::__construct();
         $this->tpl = TEMPLATE.'share/';
 
-        //不需要检查的action
+        //No need to check the action
         $arr_not_check = array('common_js');
         if (!in_array(ACT,$arr_not_check)){
             $this->_check_share();
             $this->_init_info();
             $this->assign('can_download',$this->share_info['not_download']=='1'?0:1);
         }
-        //需要检查下载权限的Action
+        //You need to check permissions download Action
         $arr_check_download = array('fileDownload','zipDownload','fileProxy','fileGet');//'fileProxy','fileGet'
         if (in_array(ACT,$arr_check_download)){
             if ($this->share_info['not_download']=='1') {
                 show_json($this->L['share_not_download_tips'],false);
             }
         }
-        //禁止下载后；也会无法预览 'fileProxy','fileGet'
+        //After the download is prohibited; no preview will 'fileProxy','fileGet'
         if (ACT == 'file' && $this->share_info['not_download']=='1') {
             $this->error($this->L['share_not_download_tips']);
         }
@@ -39,7 +39,7 @@ class share extends Controller{
         if (!isset($this->in['user']) || !isset($this->in['sid'])) {
             $this->error($this->L['share_error_param']);
         }
-        //储存该共享基础信息
+        //Storing the information shared infrastructure
         $share_data = USER_PATH.$this->in['user'].'/data/share.php';
         if (!file_exists($share_data)) {
             $this->error($this->L['share_error_user']);
@@ -52,7 +52,7 @@ class share extends Controller{
 
         $this->share_info = $list[$this->in['sid']];
         $share_info = $this->share_info;
-        //检查是否过期
+        //Check if expired
         if (isset($share_info['time'])&&
             $share_info['time'].length!=0) {
             $date = date_create_from_format('y/m/d',$share_info['time_to']);
@@ -61,13 +61,13 @@ class share extends Controller{
             }
         }
         
-        //密码检测
+        //Password Detection
         if ($share_info['share_password']=='') return;
         //if ($_SESSION['kod_user']['name']==$this->in['user']) return;
 
-        //提交密码
+        //Submit password
         if (!isset($this->in['password'])){
-            //输入密码
+            //enter password
             if ($_SESSION['password_'.$this->in['sid']]==$share_info['share_password']) return;
             $this->error('password');
         }else{
@@ -81,7 +81,7 @@ class share extends Controller{
         }
     }
     private function _init_info(){
-        //获取用户组，根据是否为root 定义前缀
+        //Get user groups, defined according to whether the root prefix
         $member = new fileCache(USER_SYSTEM.'member.php');
         $user = $member->get($this->in['user']);
         if (!is_array($user) || !isset($user['password'])) {
@@ -103,7 +103,7 @@ class share extends Controller{
 
         if ($this->share_info['type'] != 'file'){
             $share_path=rtrim($share_path,'/').'/';
-            define('HOME',$share_path);//dir_out时当作前缀剔除;系统
+            define('HOME',$share_path);//dir_out When used as a prefix removed; system
         }
 
         $share_path = iconv_system($share_path);
@@ -125,7 +125,7 @@ class share extends Controller{
 
     //==========================
     /*
-     * 文件浏览
+     * File Browser
      */
     public function file() {
         $this->share_view_add();
@@ -138,14 +138,14 @@ class share extends Controller{
         $this->display('file.php');
     }
     /*
-     * 文件夹浏览
+     * Folder browsing
      */
     public function folder() {
         $this->share_view_add();
         if(isset($this->in['path']) && $this->in['path'] !=''){
             $dir = '/'._DIR_CLEAR($this->in['path']);
         }else{
-            $dir = '/';//首次进入系统,不带参数
+            $dir = '/';//For the first time into the system, with no arguments
         }
         $dir = '/'.trim($dir,'/').'/';
         $this->_assign_info();
@@ -153,7 +153,7 @@ class share extends Controller{
         $this->display('explorer.php');
     }
     /*
-     * 代码阅读
+     * Code reader
      */
     public function code_read() {
         $this->share_view_add();
@@ -162,7 +162,7 @@ class share extends Controller{
     }
 
     //==========================
-    //页面统一注入变量
+    //Page unified variable injection
     private function _assign_info(){
         $user_config = new fileCache(USER.'data/config.php');
         $config = $user_config->get();
@@ -178,13 +178,13 @@ class share extends Controller{
         $this->share_info['path'] = get_path_this(iconv_app($this->path));
         $this->assign('share_info',$this->share_info);
     }
-    //下载次数统计
+    //Statistics downloads
     private function share_download_add(){
         $num = abs(intval($this->share_info['num_download'])) +1;
         $this->share_info['num_download'] = $num;        
         $this->sql->update($this->in['sid'],$this->share_info);
     }
-    //浏览次数统计
+    //Views statistics
     private function share_view_add(){
         $num = abs(intval($this->share_info['num_view'])) +1;
         $this->share_info['num_view'] = $num;        
@@ -205,10 +205,10 @@ class share extends Controller{
             'json_data'     => "",
             'share_page'    => 'share',
 
-            'theme'         => $config['theme'],           //列表排序依照的字段
-            'list_type'     => $config['list_type'],       //列表排序依照的字段
-            'sort_field'    => $config['list_sort_field'], //列表排序依照的字段  
-            'sort_order'    => $config['list_sort_order'], //列表排序升序or降序
+            'theme'         => $config['theme'],           //List sorted by the field
+            'list_type'     => $config['list_type'],       //List sorted by the field
+            'sort_field'    => $config['list_sort_field'], //List sorted by the field
+            'sort_order'    => $config['list_sort_order'], //The list is sorted in ascending or descending order
             'musictheme'    => $config['musictheme'],
             'movietheme'    => $config['movietheme']
         );
@@ -236,7 +236,7 @@ class share extends Controller{
         show_json($this->L['no_permission'],false);
     }
 
-    // 单文件编辑
+    // Single-file editor
     public function edit(){
         $default = array(
             'font_size'     => '14px',
@@ -247,7 +247,7 @@ class share extends Controller{
             'function_list' => 1
         );
         $this->_assign_info();
-        $this->assign('editor_config',$default);//获取编辑器配置信息
+        $this->assign('editor_config',$default);//Being editor configuration information
         $this->display('edit.php');
     }
     public function pathList(){
@@ -262,7 +262,7 @@ class share extends Controller{
         if (isset($this->in['name'])){
             $path=$path.'/'.$this->_clear($this->in['name']);
         }
-        $list_file = ($this->in['app'] == 'editor'?true:false);//编辑器内列出文件
+        $list_file = ($this->in['app'] == 'editor'?true:false);//List the files in the Editor
         $list=$this->path($path,$list_file,true);
         function sort_by_key($a, $b){
             if ($a['name'] == $b['name']) return 0;
@@ -306,7 +306,7 @@ class share extends Controller{
         show_json($list);
     }
 
-    //生成临时文件key
+    //Generate temporary key file
     public function officeView(){
         if (!file_exists($this->path)) {
             show_tips("file not exists!");
@@ -317,7 +317,7 @@ class share extends Controller{
         }
         $file_url = $this->_make_file_proxy($this->path);
         $host = $_SERVER['server_name'];
-        //微软接口调用的预览
+        //Preview Microsoft interface calls
         if (strstr($host,'10.10.') ||
             strstr($host,'192.168.')||
             strstr($host,'127.0.') ||
@@ -333,10 +333,10 @@ class share extends Controller{
     }
     
 
-    //代理输出
+    //Agent output
     public function fileProxy(){
         $mime = get_file_mime(get_path_ext($this->path));
-        if($mime == 'text/plain'){//文本则转编码
+        if($mime == 'text/plain'){//Then turn text encoding
             $filecontents = file_get_contents($this->path);
             $charset=get_charset($filecontents);
             if ($charset!='' || $charset!='utf-8') {
@@ -351,7 +351,7 @@ class share extends Controller{
         $this->share_download_add();
         file_put_out($this->path,true);
     }
-    //文件下载后删除,用于文件夹下载
+    //After deleting the file download for download folder
     public function fileDownloadRemove(){
         if ($this->share_info['not_download']=='1') {
             show_json($this->L['share_not_download_tips'],false);
@@ -365,12 +365,12 @@ class share extends Controller{
         $this->share_download_add();
         if(!file_exists(USER_TEMP)){
             mkdir(USER_TEMP);
-        }else{//清除未删除的临时文件，一天前
+        }else{  // Clear the temporary files are not deleted, the day before
             $list = path_list(USER_TEMP,true,false);
             $max_time = 3600*24;
             if ($list['filelist']>=1) {
                 for ($i=0; $i < count($list['filelist']); $i++) { 
-                    $create_time = $list['filelist'][$i]['mtime'];//最后修改时间
+                    $create_time = $list['filelist'][$i]['mtime']; //Last Modified
                     if(time() - $create_time >$max_time){
                         del_file($list['filelist'][$i]['path'].$list['filelist'][$i]['name']);
                     }
@@ -392,7 +392,7 @@ class share extends Controller{
             $zip_list[$i]['path'] = _DIR_CLEAR($this->path.$this->_clear($zip_list[$i]['path']));
         }
         
-        //指定目录
+        //Specified directory
         if ($list_num == 1) {
             $path_this_name=get_path_this($zip_list[0]['path']);
         }else{
@@ -410,13 +410,13 @@ class share extends Controller{
         return iconv_app($zipname);
     }
 
-    // 获取文件数据
+    // Get file data
     public function fileGet(){
         $name = $this->_clear($this->in['filename']);
         $filename= $this->share_path.$name;
         if (filesize($filename) >= 1024*1024*20) show_json($this->L['edit_too_big'],false);
 
-        $filecontents=file_get_contents($filename);//文件内容
+        $filecontents=file_get_contents($filename);//document content
         $charset=$this->_get_charset($filecontents);
         if ($charset!='' || $charset!='utf-8') {
             $filecontents=mb_convert_encoding($filecontents,'utf-8',$charset);
@@ -433,12 +433,12 @@ class share extends Controller{
 
     //-----------------------------------------------
     /*
-    * 获取字符串编码
-    * @param:$ext 传入字符串
+    * Get string encoding
+    * @param:$ext Incoming string
     */
     private function _get_charset(&$str) {
         if ($str == '') return 'utf-8';
-        //前面检测成功则，自动忽略后面
+        //The success of the previously detected automatically ignore the back
         $charset=strtolower(mb_detect_encoding($str,$this->config['check_charset']));
         if (substr($str,0,3)==chr(0xEF).chr(0xBB).chr(0xBF)){
             $charset='utf-8';
@@ -450,7 +450,7 @@ class share extends Controller{
     }
 
     public function image(){
-        if (filesize($this->path) <= 1024*10) {//小于10k 不再生成缩略图
+        if (filesize($this->path) <= 1024*10) {//Less than 10k longer to generate thumbnails
             file_put_out($this->path);
         }
         load_class('imageThumb');
@@ -459,23 +459,23 @@ class share extends Controller{
         if (!is_dir(DATA_THUMB)){
             mkdir(DATA_THUMB,"0777");
         }
-        if (!file_exists($image_thum)){//如果拼装成的url不存在则没有生成过
-            if ($_SESSION['this_path']==DATA_THUMB){//当前目录则不生成缩略图
+        if (!file_exists($image_thum)){//If assembled into the url does not exist, it does not generate too
+            if ($_SESSION['this_path']==DATA_THUMB){//Thumbnails will not be generated in the current directory
                 $image_thum=$this->path;
             }else {
                 $cm=new CreatMiniature();
                 $cm->SetVar($image,'file');
-                //$cm->Prorate($image_thum,72,64);//生成等比例缩略图
-                $cm->BackFill($image_thum,72,64,true);//等比例缩略图，空白处填填充透明色
+                //$cm->Prorate($image_thum,72,64);//Thumbnail generation ratio
+                $cm->BackFill($image_thum,72,64,true);//Proportional thumbnails, fill the space filled with a transparent color
             }
         }
-        if (!file_exists($image_thum) || filesize($image_thum)<100){//缩略图生成失败则用默认图标
+        if (!file_exists($image_thum) || filesize($image_thum)<100){//Thumbnail generation fails with the default icon
             $image_thum=STATIC_PATH.'images/image.png';
         }
         file_put_out($image_thum);
     }
 
-    //获取文件列表&哦exe文件json解析
+    //Get a list of files & oh exe file parsing json
     private function path($dir,$list_file=true,$check_children=false){
         $list = path_list($dir,$list_file,$check_children);
         

@@ -1,602 +1,602 @@
-###ver3.2 `2015/10/25`
+### Ver3.2 `2015/10 / 25`
 -----
-####update:
- - 编辑器函数列表匹配优化；底部高度优化
- - 文件文件夹属性：文件下载地址：下载临时地址【永久下载地址、临时下载地址】
- - 扩展名限制优化
- - 防止暴力请求
- - 远程下载优化，只产生一个临时文件；下载界面关闭则自动停止
- - 编辑器刷新功能
- - office预览支持自定义
- - 右键菜单优化：按钮下后松起在菜单上则触发对应动作（参考mac右键菜单处理）
- - 移动端适配
-     - 1.列出目录
-     - 2.手机，pad打开页面时，默认进入手机版本
-     - 3.菜单处理
-     - 4.文件打开预览处理
+#### Update:
+ - Editor function list matching optimization; highly optimized bottom
+ - Folder attributes: File Download: Download a temporary address [Download permanent, temporary Download]
+ - Extension restrictions optimization
+ - Prevent Violence request
+ - Remote download optimized to generate only a temporary file; download interface turns off automatically stop
+ - Editor refresh function
+ - Office support custom preview
+ - Right menu optimization: under the loose button on the menu since the corresponding action is triggered (refer to right-click menu mac Processing)
+ - Mobile terminal adapter
+     - 1. List Directory
+     - 2 phone, open the page when the pad, to enter the mobile phone version
+     - 3. Processing menu
+     - 4. File Open Preview Processing
 
-####fix bug
- - 远程下载windows下重命名失败问题
- - 自动更新失败问题
- - 编辑器  中文光标错位问题
- - 修复https访问
- - ie8 登陆页面白色背景问题；（没有背景图片）;桌面背景图片缩放问题
- - ie下载文件，中文文件urlencode问题（windows——服务器；浏览器——ie）
- - 回收站非admin文件属性；路径隐藏
- - 文件夹权限修改bug
- - 文件创建快捷方式打不开修复
- - 我的分享——图片不显示
- - window创建txt（GB2312）——utf8打开写入内容后上传——分享后打开url乱码
- - 清空上传列表（出错失败的清空不了）
- - 修改密码、添加用户……data目录没有写权限出错提示
- - ie8 9上传失败问题
- - 火狐选中问题
- - 右键菜单分栏line导致右键菜单消失
- - 分享去掉jiathis
- - 编辑器 左侧树目录新建问题
- - 重命名 textarea框过大问题
- - 目录分享：带有音乐文件，双击打开会有二次数据，导致无法播放
- - 视频播放关闭问题
+#### Fix bug
+ - Remote download windows, rename failures
+ - Automatic update failures
+ - Chinese editor cursor corruption problem
+ - Fixed https access
+ - Ie8 landing page white background issues; (no background image); desktop background image scaling problems
+ - Ie download a file, the file urlencode Chinese problem (windows-- server; browser --ie)
+ - Non-admin file attributes trash; path Hide
+ - Modify folder permissions bug
+ - Create a shortcut file does not open repair
+ - I share - pictures do not show
+ - Window create txt (GB2312) - After uploading content to write utf8 open - open url garbled after sharing
+ - Empty the upload list (not empty error failure)
+ - Change passwords, add users ...... data directory does not have write permission error message
+ - Ie8 9 Upload failures
+ - Select the Firefox problem
+ - Context Menu column line leading to the disappearance of the context menu
+ - Sharing remove jiathis
+ - Editor new directory tree on the left side issue
+ - Rename textarea box is too big problem
+ - Contents Sharing: with music files, double-click will open the secondary data, making it impossible to play
+ - Close the video player issue
 
 
-###ver3.12 `2015/3/31`
+### Ver3.12 `2015/3 / 31`
 -----
-####update:
- - 兼容ie中文，导致菜单保存丢失问题
+#### Update:
+ - Compatible ie Chinese, resulting menu to save loss problem
 
-###ver3.11 `2015/3/30`
+### Ver3.11 `2015/3 / 30`
 -----
-####update:
- - 用户没有权限，提示优化
- - 用户配置数据保存，写入失败提示
+#### Update:
+ - The user does not have permission, optimization tips
+ - User configuration data is saved, write fails tips
 
-####fix bug
- - 分享mp3，音乐播放路径问题
- - 火狐bug修复
- - 分享页面、文件夹；office预览问题
- - 编辑器
-     中文光标错位问题
-     tab 宽度根据标签个数自动缩放(ie 火狐不兼容问题)
-     当前文件路径对应到title；
-     工具栏火狐兼容性bug
+#### Fix bug
+ - Share mp3, music playback path problem
+ - Firefox bug fixes
+ - Share page folder; office preview issue
+ - editor
+     Chinese cursor dislocation problem
+     tab width based on the number of tags automatic scaling (ie Firefox incompatibilities)
+     Corresponding to the current file path to title;
+     Toolbar Firefox compatibility bug
 
 
-###ver3.1 `2015/3/26`
+### Ver3.1 `2015/3 / 26`
 -----
-####update:
- - 分享可以修改路径；避免文件移动后原始分享路径失效问题
- - 分享后自动刷新当前目录；跟新配置数据
- - 文件管理 当前文件夹不可写，对应右键菜单功能屏蔽
+#### Update:
+ - Sharing can modify the path; after moving the original file share path to avoid failures
+ - Automatically refresh share in the current directory; with the new configuration data
+ - File Manager can not write the current folder, right-click menu function corresponding to the shield
 
-####fix bug
- - cookie自动登录失败，导致页面css丢失问题
- - cookie路径导致语言设置失败问题
- - 应用中心css丢失问题
- - 解压不了、权限验证过于严格问题 
- - 左侧树目录被底部盖住问题
- - 分享office不能预览问题
- - 用户组；用户组列表选择错误
- - 菜单编辑中文部分乱码
- - 图片预览优化
+#### Fix bug
+ - Cookie automatic login fails, resulting in the loss of page css issue
+ - Cookie path leading to the language setting failures
+ - Application Center css loss problem
+ - Can not unpack, verify permissions problem too restrictive
+ - Directory tree on the left bottom is covered issue
+ - Share office can not preview issue
+ - User Groups; user group list selection error
+ - Part of the Menu Editor Chinese garbled
+ - Optimization of image preview
 
-###ver3.0 `2015/3/23`
+### Ver3.0 `2015/3 / 23`
 -----
-####update:
- - 文档分享[文件、文件夹分享；支持添加密码；文件分享支持多种格式在线预览]
- - 回收站;(避免误删除)
- - 系统设置（自定义程序的一些配置）
- - 头部菜单管理
- - 文件夹下载，多选批量下载
- - 数据全面安全优化
- - 上传优化：
-     - 分片上传，不再受php.ini环境限制；
-     - 加入上传速度
-     - 上传目录：随着当前目录变化而变化。
-     - 上传完成可点击,进入文件所在目录
-     - 界面简化(不显示切换到当前目录；保存路径不要,列表不自动删除；不需要最大化，以及调整窗口大小)
-     - 上传；总status ——放到标题栏
-     - 大文件分片上传尝试(失败情况处理)
-     - 上传文件夹：不刷新f5 - 最后刷新
-     - 显示文件名,大小;
-     - 允许重复文件上传
-     - 上传前可以删除
-     - 进图展示优化：显示文件大小、速度、完成进度
- - 编辑器：
-     - 编辑器 函数列表；c9 IDE;展示并定位；实时更新：php function、js：function 
-     - 函数列表开启与关闭配置
-     - php代码自动补全 缺少关键字部分
-     - 下拉列表；点击其他地方则消失
-     - 非txt则open；不能open则tips  bindary:fla ...;右键加入：强制编辑
-     - 字体优化
-     - 修复github主题光标位置错位问题(选中、编辑都会出现)
- - 离线下载优化:加入取消机制；避免持续执行；显示文件大小、速度、完成进度
- - 图片缓存，按照文件MD5来缓存；与路径无关
- - 文件列表，hover的title更多详细信息展示
- - 对话框，标题栏右键加入：刷新、新窗口打开
- - 对话框双击最大化、取消最大化(只对可以缩放的对话框有效)
- - 对话框最大化、最小化对话框放大按钮图标改变
- - 权限前端验证(上传等 上传格式前端限制);前端检测 - 新建、上传、删除
- - 设置中心 - -用户管理  非管理员显示优化
- - 公共js部分采用动态调用方式；后续优化可由js完成前端MVC
- - 文件、文件夹创建快捷方式
- - 文件夹创建工程项目
- - 未知文件打开提示、不自动下载
- - 右键菜单：加入字母快捷打开
- - 右键自适应：隐藏 - -zip - 视频;多选时：含有视频音频文件时才显示——加入播放列表
- - 右键触发到菜单上(暂时修改jquery-contentMenu 屏蔽右键按下移动触发菜单功能)
- - 拖拽优化：框选、tasktap切换；选中其他文字问题；性能问题
- - 框选文件，超出屏幕则自定滚动选中；屏蔽文字可以被选中的问题
- - simple主题，界面UI优化
- - seajs  text：tpl修改为html； 
- - 统一走proxy；隐藏真实地址;web_root,web_host,
- - 统一proxy后，office打开权限问题解决：加密方式生成临时访问地址
- - 播放器更多格式支持：wmv、avi、mpg等
+#### Update:
+ - Document sharing [file, folder sharing; supports adding passwords; file sharing to support a variety of formats Online Preview]
+ - Recycle Bin; (to avoid accidentally deleted)
+ - System settings (custom program some configurations)
+ - Head menu management
+ - Download folder, batch download multiple choice
+ - Comprehensive data security optimization
+ - Upload Optimization:
+     - Fragmentation upload, php.ini no longer subject to environmental constraints;
+     - Add upload speed
+     - Upload directory: With the current directory changes.
+     - Upload completed clickable, enter the directory where the file
+     - Simplified interface (not display switches to the current directory; do not save path, the list does not automatically deleted; do not need to maximize, and resize the window)
+     - Post; overall status - into the title bar
+     - Try to upload a large file fragmentation (treatment failures)
+     - Upload folder: do not refresh f5 - Last Update
+     - Display file name, size;
+     - Allow duplicate file upload
+     - Can be deleted before uploading
+     - Optimization into the map display: displays the file size, speed, progress toward completion
+ - editor:
+     - Editor function list; c9 IDE; display and positioning; real-time updates: php function, js: function
+     - List of functions on and off configuration
+     - Php automatic code completion key part missing
+     - The drop-down list; click anywhere else disappears
+     - Non-txt is open; can not open the tips bindary: fla ...; the right to join: Forced edit
+     - Font Optimization
+     - Repair github relating to the cursor position dislocation problem (select, edit will appear)
+ - Offline Download Optimization: Join cancellation mechanism; avoid sustained implementation; display the file size, speed, progress toward completion
+ - Image cache according to the cache file MD5; nothing to do with the path
+ - The list of files, hover the title display more detailed information
+ - Dialog title bar right Joined: refresh, a new window opens
+ - Maximize the dialog box, double-click, Unmaximize (only valid zoom dialog)
+ - Maximize the dialog box, the dialog box is minimized zoom button icons change
+ - Permission validation front (front-end uploading upload format restrictions); front-end detection - New, upload, delete
+ - Set the center - - non-administrator user management display optimization
+ - Public js part of dynamic invocation; subsequent optimization by js complete front-end MVC
+ - Files, folders, create a shortcut
+ - Folder Creation Project
+ - Unknown file open prompt, do not automatically download
+ - Context Menu: Add a shortcut to open letter
+ - Right-adaptive: Hidden - -zip - video; multi-choice: only contains video and audio files are displayed - added playlist
+ - Right to trigger the menu (temporarily modify jquery-contentMenu shield right button to move the trigger menu function)
+ - Drag Optimization: marquee, tasktap switch; select the other text issues; performance issues
+ - Marquee file, scroll beyond the custom screen is selected; shield text can be selected issues
+ - Simple theme, the interface UI optimization
+ - Seajs text: tpl modify html;
+ - Unified walking proxy; hide the true address; web_root, web_host,
+ - Unified proxy, office open permissions problem-solving: the encryption method to generate a temporary access address
+ - The player supports more formats: wmv, avi, mpg, etc.
 
-####fix bug and 优化:
- - win下 中文路径导致的问题处理
- - public中拖拽问题 复制粘贴问题
- - 桌面任务栏，右键菜单绑定丢失问题
- - 对话框，标题栏右键菜单不显示问题处理
- - 用户名支持中文
- - 密码含有特殊字符bug处理
- - 播放器解决第一次打开有时候无法播放的问题。
- - 桌面新建位置问题；列表在不同情况下新建问题。始终放在最后
- - firefox兼容性  mac兼容性；ie9 10兼容性；
- - appstore 创建、修复只允许管理员操作，显示优化
- - app创建，js代码类型时,单引号导致不可用问题。
- - 循环跳转 session判断  if(!isset($_SESSION)){session_start();}
- - win下 中文扩展名导致获取目录列表问题：扩展名获取优化
- - 编辑器保存  ajax 异步请求。loading
- - 上传目录错误问题；（上传到了其他目录  ie8 中文）
- - 优化mac下gd库支持
- - 窗口拖动到task之下，出不来问题。top大于一定值则锁定
- - 多个同域名；登录退出互不干扰
- - office变更 https://view.officeapps.live.com/op/view.aspx?src=
- - appstore  icon方式；默认减少；
- - 列表模式：重命名oexe没修改但自动加入了；（oexe不显示）
- - 非管理员，zip压缩导致文件名被截断问题修复；win-win 中文解压缩处理；mac-mac中文解压缩处理
- - 下载有BOM问题
- - wwwroot识别问题；
+#### Fix bug and optimization:
+ - Win path leads to the next question Chinese treatment
+ - Public issue in drag copy and paste problem
+ - Desktop Taskbar, right-click menu binding loss problem
+ - Dialog title bar right-click menu does not display Problem
+ - User name support Chinese
+ - The password contains special characters bug treatment
+ - The first player to solve the problem of open and sometimes can not be played.
+ - New desktop where the problem; the new list of problems in different situations. Always on the last
+ - Firefox mac compatibility compatibility; ie9 10 compatibility;
+ - Appstore create, repair only allows the administrator to operate, display optimization
+ - App created when js code type, single quotation marks cause problems unavailable.
+ - Cycle Jump session judge if (isset ($ _ SESSION)!) {Session_start ();}
+ - Chinese extension lead to get the win directory listing issues: extensions Get Optimization
+ - Editor save ajax asynchronous request. loading
+ - Upload directory error problem; (uploaded to another directory ie8 Chinese)
+ - Optimization gd library support under mac
+ - Drag the window to below the task, get out of the problem. top is greater than a certain value is locked
+ - With multiple domain names; log out interfering
+ - Office change https://view.officeapps.live.com/op/view.aspx?src=
+ - Appstore icon mode; the default reduction;
+ - List mode: Rename oexe modified but not automatically added; (oexe not shown)
+ - A non-administrator, zip compression causes the file name is truncated fixes; win-win Chinese decompression processing; mac-mac Chinese decompression process
+ - Download BOM have problems
+ - Wwwroot identify the problem;
 
-####fix bug 3.01 beta1:
- - 新建用户下拉菜单出不来问题
- - 分享bug
- - 设置中心：开启游客ui兼容性问题
- - demo用户  office预览————关闭了下载功能---tips
- - 文件右键菜单：zip和浏览器打开替换
- - 公共目录public不显示
- - 分享打开后有错误；点击不了生成按钮
- - 默认开启下载权限
- - 分享者禁止了下载；下载功能----
- - 登录页面底部copyright隐藏
- - 管理目录 标题栏显示对应的文件夹名称
- - 根目录 继续上级则提示
- - 没有下载权限；前端验证
- - 修复分享打开后出现校验权限失败问题
- - 公共目录分享；树目录点击对应文件列表展示问题
- - 分享页面cookie存储配置问题
- - 分享页面：文件预览权限更随下载权限
- - 分享修改时覆盖前一个分享的问题
+#### Fix bug 3.01 beta1:
+ - New User drop-down menu to get out problem
+ - Sharing bug
+ - Set Center: Open tourists ui compatibility issues
+ - Demo user office closed download preview ---- --- tips
+ - File context menu: zip and replace the browser opens
+ - Public directory public does not show
+ - Open after sharing a mistake; not click on the Generate button
+ - Enabled by default download rights
+ - Shared by prohibiting the download; download ----
+ - Log in bottom of the page copyright Hide
+ - Management directory title bar shows the name of the corresponding folder
+ - The root of the parent is prompted to continue
+ - No download access; front-end verification
+ - Check permissions occur after open repair of sharing failures
+ - Share a common directory; directory tree click on the corresponding file list display issue
+ - Share page cookie storage configuration issues
+ - Share page: Download file preview authority with more authority
+ - Modify front cover when you share a shared problem
 
 
 
-###ver2.8 `2014/11/23`
+### Ver2.8 `2014/11 / 23`
 -----
-####update:
- - 上传控件优化
- - 兼容性优化；支持ie8以上
- - 更新font-awesome到最新版本
-####fix bug:
- - 安全优化
- - 上传图片取消大文件压缩选项
- - 优化部分操作下显示问题
+#### Update:
+ - Upload Control Optimization
+ - Compatibility optimization; support ie8 more
+ - The latest version of the update to the font-awesome
+#### Fix bug:
+ - Security Optimization
+ - Picture upload large file compression options canceled
+ - Optimization of the display part of the operation at issue
 
 
-###ver2.73 `2014/9/17`
-####fix bug:
- - 安全优化补丁
+### Ver2.73 `2014/9 / 17`
+#### Fix bug:
+ - Optimization of security patches
 
 
-###ver2.72 `2014/9/16`
-####fix bug:（bug解决和程序优化）
- - 任意执行：远程下载apache 扩漏洞：判断扩展名中是否含有.php.
- - 不存在的用户
- - 桌面：开始按钮被tab盖住了
- - 主题切换,错位问题
- - 透明对话框拖动时 标题栏不显示问题
+### Ver2.72 `2014/9 / 16`
+#### Fix bug: (bug solving and process optimization)
+ - Arbitrary execution: remotely download apache spread vulnerabilities: determine whether it contains the extension .php.
+ - Non-existent user
+ - Desktop: Start button is covered tab
+ - Theme switching dislocation problem
+ - Transparent dialog dragging the title bar does not display problems
 
-###ver2.71 `2014/8/31`
+### Ver2.71 `2014/8 / 31`
 -----
-####update:
- - 编辑器配置保存：文字大小、主题风格；主题修改
- - 精简初始桌面应用
+#### Update:
+ - Save Configuration Editor: Font size, style theme; theme modification
+ - Streamlining the initial desktop applications
 
-####fix bug:（bug解决和程序优化）
- - 修改用户密码失败：
- - 打开设置设置壁纸，关掉，再打开个人中心，桌面乱掉
- - 桌面开始菜单  最大化问题
- - 语言选择下拉菜单错位
- - 修改主题重叠问题
- - appstore 添加应用tips不见
+#### Fix bug: (bug solving and process optimization)
+ - Failed to modify user password:
+ - Open the Settings to set the wallpaper, turn off, then open the individual centers, desktop mess
+ - Desktop Start menu maximization problem
+ - Language selection drop-down menu dislocation
+ - Modify themes overlap
+ - Appstore but not add application tips
 
 
-###ver2.7 `2014/8/25`
+### Ver2.7 `2014/8 / 25`
 -----
-####update:
- - 安全及性能优化
- - 静态文件加入?版本标识，版本更新后不缓存
- - webuploader 升级到0.14 优化部分上传问题
- - 错误级别：error_reporting(E_ERROR | E_WARNING);
- - 地址栏(tab模式、编辑模式)两种模式宽度自适应
- - 自建office解析服务器配置
- - 最大化全屏
+#### Update:
+ - Safety and Performance Optimization
+ Do not cache static files added version identifier, an updated version of -?
+ - Webuploader upgrade to 0.14 part of the optimization problem uploading
+ - Error level: error_reporting (E_ERROR | E_WARNING);
+ - The address bar (tab mode, edit mode) modes width adaptive
+ - Self-built office resolution server configuration
+ - Maximize fullscreen
 
-####fix bug:（bug解决和程序优化）
- - install 加入iconv、mbstring检测
- - 右键重命名 快捷键冒泡处理
- - 文件列表图片缩略图拖拽问题
- - 标题超出部分截取优化
- - 编辑器预览滚动条自适应
+#### Fix bug: (bug solving and process optimization)
+ - Install added iconv, mbstring detection
+ - Right rename shortcuts bubble up
+ - Files picture thumbnail drag problem
+ - Title excess interception Optimization
+ - Editor preview scrollbar adaptive
 
 
 
-###ver2.61 `2014/7/12`
+### Ver2.61 `2014/7 / 12`
 -----
-####update:
- - 实时搜索，根据搜索框内容变化，实时选中匹配到的结果;
- - 弹出搜索框遍历子文件夹递归搜索
- - session key 加入kod_前缀  避免和其他系统key冲突
- - 编辑器选中优化 选择鼠标到窗口外事件处理
+#### Update:
+ - Real-time search, search box varies depending on the content in real time to match the selected results;
+ - Pop-up search box to traverse subfolders recursively search
+ - Session key is added kod_ prefix to avoid conflicts with other key systems
+ - Optimization of the mouse to select the editor window to the outside event processing
 
-####fix bug:（bug解决和程序优化）
- - backspace后退截获浏览器事件,作为后退前一次访问的文件夹;
- - 搜索首字母不匹配问题
- - 弹出层中的弹出层关闭，父窗口失去焦点问题。
- - 代码中grunt部分代码拆分开，放到程序外面；提交到git、osc
- - 桌面：删除alert enter快捷键删除
- - install 检测 加入跳过，(只判断用到的函数) 加入多语言
- - zip压缩没有权限  提示红色,false 统一查找
- - 登录成功后 验证码输错清除 
- - 非root用户拖拽到文件夹问题
- - 非root解压问题 不能解压
- - list oexe 图标问题
- - 用户目录不存在判断
- - fileCahe 互斥锁  reset 不用
- - ie 8~10样式问题调整
+#### Fix bug: (bug solving and process optimization)
+ - Backspace Back intercept browser events, access the folder as a former retreat of a document;
+ - Search initials mismatch
+ - Pop-pop-layer close layer, the parent window loses focus.
+ - Code grunt split off part of the code, put it outside the program; submit to git, osc
+ - Desktop: Delete key to delete the alert enter the shortcut
+ - Install detection join skipped (only determine functions used) added multi-language
+ - Zip compression do not have permission prompt red, false unified look
+ - After a successful login verification code wrong Clear
+ - Non-root users to drag and drop folders problem
+ - Non-root decompression problem can not be decompressed
+ - List oexe icon problem
+ - Analyzing user directory does not exist
+ - FileCahe mutex not reset
+ - Ie 8 ~ 10 styles adjustment problems
 
 
-###ver2.6 `2014/7/6`
+### Ver2.6 `2014/7 / 6`
 -----
-####update:
- - 完全性优化;加入严格的校验机制
- - 首次运行环境检测[data目录检测，必须的函数支持提示]
- - 上传已存在处理——创建副本(另外包括粘贴，解压)
- - 选中优化 ctrl选中拖拽
- - 键盘快捷键选中文件,多个字符支持
- - 文件文件夹权限修改(右键——属性,即可修改)
- - 对话框加入ico,对应任务栏
- - 右键等部分菜单效果优化
- - 远程下载加入进度条,下载速度等信息
+#### Update:
+ - Complete optimization; join strict verification mechanism
+ - First run environmental monitoring [data directory detection function must support alerts]
+ - Upload process already exists - create a copy (paste additionally includes decompression)
+ - Select the optimization ctrl drag selected
+ - Keyboard shortcuts to select files, multiple character support
+ - Modify folder permissions (right - Property, you can modify)
+ - Dialog added ico, corresponding to the taskbar
+ - Right part of the menu and other performance optimizations
+ - Remote download progress bar was added, the download speed and other information
 
-####fix bug:（bug解决和程序优化）
- - 下载前判断当前目录可写
- - 文件扩展名处理,分为用户方式和扩展名权限方式
- - 上传结束提示：是否成功、失败原因
- - 上传扩展名限制 解决apache .php.*当做php执行bug 
- - 文件名非法字符限定 <script>
- - 树目录展开箭头状态修复
- - 树目录新建文件,没有子节点刷新bug解决
- - 文件大小为0上传不了问题
- - windows下进入某些系统文件夹死循环bug解决
- - tips 居中显示
- - 任务栏标签选中问题：已经显示且为交点窗口 点击——隐藏；否则——显示，并且置为焦点窗口
- - 拖入url ——oexe 新窗口打开
- - 选中文件时,移动到屏幕可视区域(解决上下左右选中文件滚动条不一致问题)
+#### Fix bug: (bug solving and process optimization)
+ - Before downloading Analyzing the current directory writable
+ - The file extension process is divided into user mode and extension mode permissions
+ - Upload End Tip: success, failure reason
+ - Upload extension restrictions solve apache .php * as the executing php bug.
+ - Illegal filename characters defined <script>
+ - Expand the directory tree arrow repair status
+ - New file directory tree, no child nodes refresh bug solved
+ - File size 0 can not upload problem
+ - Under certain system folder windows into the infinite loop bug solved
+ - Tips centered
+ - Select the Taskbar tab problem: as has been shown, and click on the intersection of the window - hide; otherwise - displayed, and set the focus window
+ - Drag url --oexe new window opens
+ - Select the file, move to the visible area of ​​the screen (to solve the scroll bar up and down to select the file inconsistency)
 
 
-###ver2.51 `2014/6/22`
+### Ver2.51 `2014/6 / 22`
 -----
-####fix bug:（bug解决和程序优化）
+#### Fix bug: (bug solving and process optimization)
 
- - 登录多次密码输入错误验证码bug解决
- - 修复漏洞：创建副本加入权限控制。和拖文件拽权限一致
- - 文件上传失败检测
- - 树目录同步优化
+ - Log repeatedly enter the wrong password verification code bug solved
+ - Bug fixes: Creates a copy of added access control. And drag the file permissions consistent drag
+ - File upload failed detection
+ - Tree directory synchronization optimization
 
 
-###ver2.5 `2014/6/15`
+### Ver2.5 `2014/6 / 15`
 -----
-####update:
- - 增加创建副本功能 按住ctrl拖拽即可，可以到当前，也可以到文件夹。
- - 多选拖拽优化：剪切到、移动到某个文件夹
- - 创建副本功能
- - 树目录和文件列表一致性保持 更新相互通知
+#### Update:
+ - Increase drag to create a copy function can hold down ctrl, the current can be to a folder.
+ - Multi-select drag optimization: cut to move to a folder
+ - Creates a copy function
+ - Tree of directories and files kept updated list of consistency mutual notification
 
-####fix bug:（bug解决和程序优化）
- - 桌面重命名bug
- - 统一对话框部分bug
- - php notice 提示解决
- - ajax返回非json 则展示服务错误的返回
- - 所有入口都加入index.php 解决部分服务器没有设置默认入口问题
+#### Fix bug: (bug solving and process optimization)
+ - Desktop Rename bug
+ - Unified Dialog section bug
+ - Php notice tips to resolve
+ Back then json ajax returns non-display service error -
+ - All entries are added index.php to solve part of the server is no default entry problem
 
-###ver2.4 `2014/6/8`
-####update:
- - 语言选择
- - 远程下载文件名优化
- - 树目录事件优化
- - 收藏夹点击 undefined   
- - 没权限建立文件夹错误提示 红色 
- - 打开dialog 不显示问题。先显示后打开 
- - ajax error 系统错误  对话框提示内容
- - 懒加载优化
+### Ver2.4 `2014/6 / 8`
+#### Update:
+ - language selection
+ - Remote download filename optimization
+ - Optimization event directory tree
+ - Favorites Click undefined
+ - Did not have permission to create folder error message in red
+ - Open the dialog does not show the problem. After the first show to open
+ - Ajax error system error dialog box prompts content
+ - Lazy loading optimization
 
 
-###ver2.3 `2014/6/2`
+### Ver2.3 `2014/6 / 2`
 -----
-####update:
- - 拖动url——创建ext app
- - 文件管理，树目录变化后（增删改）自动同步到文件列表
- - 文件管理，文件列表变化后（增删改）自动同步到树目录
- - 中文用户名限制
- - 对话框打开关闭动画
- - 其他多处优化                        
+#### Update:
+ - Drag url-- create ext app
+ - After the file management, directory tree changes (additions and deletions) automatically sync to the file list
+ - After the file management, file list changes (additions and deletions) to automatically synchronize the directory tree
+ - Chinese Username restrictions
+ - Close the dialog box opens Anime
+ - Other multiple optimization
 
-####fix bug:（bug解决和程序优化）
- - 文件名限制bug
- - 同目录多个程序cookie bug修复
- - 地址栏 最后显示宽度问题
- - 服务器路径下 编辑器预览404修复
- - 树目录显示优化
- - 登录记住密码优化
+#### Fix bug: (bug solving and process optimization)
+ - Filename restrictions bug
+ - Directory with multiple programs cookie bug fixes
+ - Finally, the address bar display width problem
+ - Under the server Path Editor to repair 404 Preview
+ - Directory tree display optimization
+ - Remember Password login Optimization
 
-###ver2.2 `2014/5/11`
+### Ver2.2 `2014/5 / 11`
 -----
-####update:
- - 公共目录支持(多个用户可以共享目录,写权限跟随用户组权限设定)
- - 自动升级优化
- - 文件管理工具栏 增加菜单选项，方便移动设备操作
- - 文件编辑器，文件树目录 上下左右键盘切换  快捷键加入
- - 树目录去掉库,改为个人目录等多处文案修改
- - 默认打开用户目录
+#### Update:
+ - Public directory support (multiple users can share the directory, write privileges follow the user group permissions)
+ - Automatic optimization upgrade
+ - Increase file management toolbar menu of options to operate the mobile device
+ - File editor, file directory tree and down to switch keyboard shortcuts added
+ - Remove the directory tree database to modify personal directory, such as multiple copy
+ - Open the default user directory
 
-####fix bug:（bug解决和程序优化）
- - 桌面任务栏点不中bug
- - 部分文案问题
- - 众多细节优化
+#### Fix bug: (bug solving and process optimization)
+ - Not in the desktop taskbar point bug
+ - Partial copy problem
+ - Many details of the optimization
 
 
-###ver2.1 `2014/4/2`
+### Ver2.1 `2014/4 / 2`
 -----
-####update:
- - 文件夹拖拽上传,完美解决(保持原始目录结构)
- - 解压缩优化;解压中文问题。解压缩整体速度
- - 树目录增加快捷键支持（上下、左右展开树目录；复制、粘贴、剪切、删除、打开、搜索、新建文件(夹)、）
- - pdf预览支持
- - mac快捷键 ctrl 一一对应command    
- - 音乐播放器和视频播放器相互独立
- - 图片懒加载、图片较多的情况下只加载首屏图片缩略图;
- - 编辑文件打开出错,自动关闭标签;文件打开20M限制(大于20M则不处理,浏览器会卡死)
- - 标签关闭提示：检测是否有未保存文件，文件修改实时修改是否修修改的按钮状态
+#### Update:
+ - Drag the folder to upload, the perfect solution (to keep the original directory structure)
+ - Decompression optimization; decompression Chinese problem. Unzip the overall speed
+ - Increase the shortcut key support directory tree (up and down, left and right to expand the directory tree; copy, paste, cut, delete, open, search, create a new file (folder),)
+ - Pdf preview support
+ - Mac command shortcuts ctrl-one correspondence
+ - Music player and video player independent of each other
+ - Lazy loading image, this image from more cases only load the first screen image thumbnails;
+ - Edit the file open error, automatic off-label; file open 20M limit (greater than 20M not processed, the browser will get stuck)
+ - Label Close Tip: detecting whether there is unsaved files, file modification in real time whether the changes Modifying button states
 
-####fix bug:（bug解决和程序优化）
- - 文本文件编辑 文件名含有url编码则出错bug
- - 右键菜单在最下面时，右键位置重叠导致点击菜单问题
- - 编辑器打开文件时光标问题，处理：移动到行尾；编辑器enter建不显示自动提示
- - iframe 打开url 优化。解决canvas问题
- - 文件编辑器,载入loading去掉
- - 删除错误时，或上传错误时也刷新目录。删除提示颜色错误
- - 对话框右键 点击右键菜单隐藏修复
- - 手机端  touch =双击
- - 文件列表  explorer  右键 不清除选才·
- - 树目录中文展开问题。
- - ie 重命名状态textarea不可选则问题
- - 修复mac 下 ctrl连选出现右键菜单。
- - ie 树目录右键兼容性
- - 
+#### Fix bug: (bug solving and process optimization)
+ - A text file to edit the file name containing url encode the error bug
+ - At the bottom right-click menu, right-click on the menu position overlapping cause problems
+ - When editor open file the cursor problem, deal with: Move to end of line; enter the editor does not display automatically prompts built
+ - Iframe open url optimization. Problem solving canvas
+ - File editor, remove the loading loading
+ - When you delete an error, or upload error also refresh the directory. Remove Wrong Color Tips
+ - Right-click context menu to hide the dialog box repair
+ - Double-click on the mobile phone side touch =
+ - The list of files, right-explorer is not cleared before the election ·
+ - Chinese launched a directory tree problem.
+ - Ie rename the problem is not selectable state textarea
+ - Fixed mac ctrl-election under the context menu appears.
+ - Ie the right directory tree compatibility
+ -
 
 
-###ver2.0 `2014/3/2`
+### Ver2.0 `2014/3 / 2`
 -----
 
-####fix bug:（bug解决和程序优化）
- - body右键屏蔽(保留input、textarea)
- - 重命名&新建时  右键（编辑内容系统菜单）
- - 对话框 不显示边框（位移处理,opacity：0）
- - esc 退出程序  屏蔽该功能。
- - 关闭播放器,还在播放bug
- - 增加资源管理器任务栏。任务栏加入右键功能。
- - 对话框增加右键功能
- - guest [三类用户 root/default/guest] guest登录处加链接。20min
- - 打包程序[update  user_add,admin/demo;  删除webuploader.js thumb less]
- - 编辑添加应用权限只能是root用户才可以。
- - 保存文件不可写提示！
- - 解压缩结果提示。（对话框）
+#### Fix bug: (bug solving and process optimization)
+ - Body right shield (reservation input, textarea)
+ - Rename & When creating a new right (edits the system menu)
+ - Dialog box does not display a border (the displacement process, opacity: 0)
+ - Esc to exit the program mask the function.
+ - Turn off the player, is still playing bug
+ - Increase the Explorer taskbar. Taskbar Right-added features.
+ - The right to increase the dialog function
+ - Guest [three categories of users root / default / guest] guest login link at plus. 20min
+ - Packers [update user_add, admin / demo; delete webuploader.js thumb less]
+ - Editing application permissions to add only the root user can.
+ - Save the file is not writable Tip!
+ - Unzip results suggest. (Dialog)
 
-####upload
- - dialog display
- - root登录 目录修改为服务器路径
- - artdialog 已经打开的窗口 (设了id) 最小化时,再次打开则显示
- - 最小化窗口后,再次打开 dialog display (setting-display)
- - 上传进度加入大小
- - 上传窗口关闭,自动停止所有上传队列
- - 拖拽后,更新上传地址为当前地址。(之前上传队列也会这样。bug)
- - root用户非服务器路径下文件预览（图片、mp3、视频、html、swf、……php代理输出文件内容,http方式）
- - 对话框最小化或关闭,重置最大index为焦点窗口
- - 图片缩略图生成：小于5k则不生成（直接输出）
- - 加载文件列表改为异步方式,数据返回采用回调函数方式。增强体验
- - 选中优化,文件&文件夹重命名、文件&文件夹新建 后自动选中。(f5增加回调。)；
- - 选中保持,选中后如果调整排序等等,保持选中状态。
- - 上传文件选中当前。
- - f5改为异步(加入mask  loading) 优化文件夹打开体验
- - 键盘按键选中文件  增加字符搜索定位功能(单个字符,增加到多个字符选中。两次响应直接延迟250ms)
- - 幻灯片播放[优化成fancybox或者  重写动画部分、打开时关不掉问题]
- - 编辑器backspace、delete时不提示。
- - 编辑器,增加选中效果
- - 增加不自动提示功能,配置项作为全局配置。影响后续建立的文件。选中标记状态。
- - 更换桌面背景图片【load后替换】
- - 更换主题【css load 后载入】
- - 删除。不清除选中。提前准备数据
- - 构建打包,合并压缩。添加版本、版权
- - 自动升级(本地记录版本,服务器js调用 参数  url、###version；忽略此版本。cookie。统计用户)
+#### Upload
+ - Dialog display
+ - Root login directory modify the server path
+ - Artdialog open windows (set the id) is minimized, the display is turned on again
+ - After a minimized window, open again dialog display (setting-display)
+ - Upload progress Add to size
+ - Upload window closes automatically stops all upload queue
+ - After dragging, update upload address is the current address. (Before the upload queue so be .bug)
+ - Root user non-server path file preview (image, mp3, video, html, swf, ...... php proxy output file contents, http mode)
+ - Minimize or close the dialog box, reset the maximum index of the focused window
+ - Picture thumbnail generation: less than 5k is not generated (direct output)
+ - The list of files to be loaded asynchronously, the data is returned using a callback function mode. Enhanced Experience
+ - Select the optimization, rename files & folders, files & folders after a new automatically selected. (F5 increase callback.);
+ - Check holding, sorting, etc. When selected if the adjustment, remain selected.
+ - Upload files currently selected.
+ - F5 to asynchronous (added to mask loading) optimization Folder Opens Experience
+ - Select the file to add keyboard character search positioning function (a single character, to more than two characters selected direct response delay 250ms.)
+ - Slideshow [fancybox or optimized to rewrite part of the animation, can not afford to shut a problem opening]
+ - Editor backspace, not prompted delete.
+ - Editor, select the effect to increase
+ - Increase not automatically prompt function, configuration items as the global configuration. Affected files subsequently created. Checkmark state.
+ - Change the desktop background image after the replacement load []
+ - Replace the theme css load after load []
+ - Delete. Do not remove the check. Prepare ahead of data
+ - Construction of packaging, combined compression. Add version, copyright
+ - Automatic Upgrade (local recording version, server js call parameters url, ### version; users ignore this version .cookie statistics.)
 
 
-###ver2.0  debug `2014/3/2`
+### Ver2.0 debug `2014/3 / 2`
 -----
-####fix bug:（bug解决和程序优化）
- - 优化文件打开处理
- - 文件&文件夹：含有%、+号的处理(显示不出等问题,encoenURIComponent——rawurldecode)
- - 文件下载,支持大文件下载、断点续传。
- - 解决更改排序方式后 ——对应右键菜单不同步问题。
- - 优化右键更改列表状态,同步保存配置到服务端。
- - 文件浏览器打开(a点击新窗口跳转,a不支持click,用子元素冒泡来实现点击)
- - 优化配置文件存储方案。直接由前端操作后端key,value
- - 修复添加收藏夹问题（已打开设置窗口再添加失败问题）
- - 修复树目录中文文件名bug
- - 优化pic图片幻灯片播放
- - 优化新建文件&文件夹 清空选择状态
- - 对话框组件 ie8 优化；tips不显示任务栏；
- - 优化地址栏过长编辑状态问题
- - 优化新建、重命名文件(夹) 高度自适应问题  
- - firefox ctrl+s 系统对话框屏蔽 
- - 树目录:收藏夹优化(右键绑定)；右键操作优化,拖拽优化（文件管理&编辑器）
- - 收藏夹优化（右键    >编辑删除）
+#### Fix bug: (bug solving and process optimization)
+ - Optimize file open processing
+ - Files & Folders: Contains% treatment + number (not reveal other issues, encoenURIComponent - rawurldecode)
+ - File downloads, support large file downloads, HTTP.
+ After resolving change the sorting - - corresponding to the context menu of sync problems.
+ - Optimization of the right to change the listing status, synchronization save the configuration to the server.
+ - The file browser opens (a new window click to jump, a not support click, bubbling with sub-elements to achieve click)
+ - Optimization profile storage solutions. Directly from the front end of the rear end of the operation key, value
+ - Repair Add Favorites problems (open the Settings window and then add failures)
+ - Fixed bug tree directory file name in Chinese
+ - Optimization pic picture slideshow
+ - Optimization of New Files & Folders emptied select state
+ - Dialog Component ie8 optimization; tips are not displayed on the taskbar;
+ - Optimization of address field too long Edit the status issue
+ - Optimization of new, rename the file (folder) highly adaptive problems
+ - Firefox ctrl + s system dialog shield
+ - Tree directory: Favorite optimization (right-bound); Right operation optimization, optimization of drag (File Manager & Editor)
+ - Favorite optimization (right-click> Edit Delete)
 
-####update:
-**新增功能**
+#### Update:
+**new features**
 
- - 多用户、权限控制：
- - 可以建立权限组,将功能分配给权限组
- - 添加用户,选择所属的权限组。
- - 权限按功能划分成颗粒,可以任意配置,例如普通使用者、游客等
- - 搜索：支持递归搜索,可选择是否搜索文件内容。
- - 增加桌面自定义壁纸。
- - 皮肤优化  ok  多色彩支持。
- - 应用商店,root用户可以管理应用。安装、修改、删除。普通用户可以安装应用。
- - 应用添加了图标。对应右键功能。
- - office文档在线预览。
+ - Multi-user access control:
+ - You can create security groups, assign functions to the permission group
+ - Add a user, select the permissions group belongs.
+ - Permission by function into particles, which could be configured, for example, ordinary users, visitors, etc.
+ - Search: Search support recursion, you can choose whether to search for the file contents.
+ - Increased desktop customization wallpaper.
+ - Skin color optimization ok more support.
+ - App store, root user can manage applications. Install, modify, delete. Ordinary users can install applications.
+ - Added application icon. Corresponding to the right-click functionality.
+ - Office documents online preview.
  
-**上传下载**
+Uploading and downloading ** **
 
- - 采用全新上传控件,跟安全,更好的体验。
- - 拖拽支持文件夹,多个文件。上传自动过滤不允许的文件类型
- - 拖拽上传 和上统一优化,修复webuploader的文件判断；火狐拖拽上传,ie9+拖拽上传。
- - 上传时自动过滤不合格的文件,上传失败错误返回。
+ - With a new upload control, with security, a better experience.
+ - Drag and drop support for folders, multiple files. Upload automatic filtering does not allow file types
+ - Drag and drop upload and unified optimization, file repair webuploader judgment; Firefox drag upload, ie9 + drag upload.
+ - Automatic filtering unqualified file upload, upload failed error is returned.
 
-**文件编辑**
+** ** File Editor
 
- - 编辑器支持多光标
- - 支持几乎所有编程语言的代码高亮
- - 支持代码自动补全（基于文档、或自定义的代码快照）
- - 快速预览功能
- - 优化文件保存完美解决。编码自动识别转换。（字符串转义问题。1&#'[{'"+~%25\\\\ ////）
- - 文件编辑,添加收藏夹
- - 优化音乐播放器,添加音乐后自动播放新添加的第一首；解决之前添加列表后暂停问题。
- - 优化任务栏,多标签；最小化flash问题（left+10000 visiable）
- - ctrl,shift 多选时拖拽优化（按住这两个键时,不能拖动；拖动加入延迟200ms）
- - 编辑器在没打开文件的情况下工具栏不可用问题。
- - 搜索、替换；vim模式
- - ……
+ - Editor supports multi-cursor
+ - Support for code highlighting almost all programming languages
+ - Supports automatic code completion (based on the document, or custom code snapshot)
+ - Quick preview
+ - Optimization of the perfect solution to save the file. Automatic identification coding conversion. (String escape problems .1 & # '[{' "+ 25% ~ \\\\ ////)
+ - Document editing, add favorites
+ - Optimization of the music player, the first song played automatically added after adding new music; pause after adding a list of issues resolved before.
+ - Optimization of the taskbar, multi-tag; minimize flash issue (left + 10000 visiable)
+ - Ctrl, shift when dragging multiple choice optimization (while holding down two keys, can not drag; drag added delay 200ms)
+ - The editor in the case did not open file toolbar is not available issues.
+ - Search, Replace; vim mode
+ - ......
 
-**登录退出**
+** ** Login Exit
 
- - 登录优化  ok【页面&验证码&记住密码】
- - 三次错误需要输入验证码,保证系统的安全性
- - 优化自动登录安全性,客户端保存cookie自动登录信息。【tooken加入本地ip】
+ - Log in page optimization & verification code [ok & Remember password]
+ - Need to enter a verification code incorrectly three times to ensure the safety of the system
+ - Optimization of automatic logon security, automatic login cookie to save the client information. Join the local ip] [tooken
 
-**系统优化**
+**System Optimization**
 
- - 解决较慢操作,阻塞其他操作问题。（同一个用户session会加锁,入口处做释放)
- - 前后端代码基本全部重构,前端采用模块化方法sea.js|require.js  模块化。
- - 凡是有模板调用的（display——页面部分php解析。并将配置注入到页面js变量,便于js使用）
- - 加入模板机制;通用模块采用懒加载模式；使用artTemplate 对模板绑定数据。
- - kv结构存储
- - 路由权限控制
- - 后端统一json输出。  
+ - Solve slow operation, blocking other operational problems. (The same user session will be locked entrance do release)
+ - Front and rear ends substantially all of the code refactoring, front-end modular approach sea.js | require.js modularity.
+ - Where there are templates calling (display-- page part php parsing and injected into the configuration page js variable js easy to use.)
+ - Add template mechanism; Universal module lazy loading mode; use artTemplate template data binding.
+ - Kv storage structure
+ - Routing access control
+ - Unified backend json output.
 
-###ver1.21  `2013/11/6`
+### Ver1.21 `2013/11 / 6`
 -----
-####fix bug:
- - 修复文件下载bug
- - 修复编辑器自动补全问题,<aa bb /> ——> <aa bb></a> 
- - 兼容部分服务器问题。
+#### Fix bug:
+ - File download bug fixes
+ - Repair editor auto-complete problems, <aa bb /> -> <aa bb> </a>
+ - Compatible part of the server problems.
 
-###ver1.2  `2013/10/16`
+### Ver1.2 `2013/10 / 16`
 -----
-####fix bug:
- - 设置,外部通用调用方式
- - 打包中文乱码问题。
- - simple,default主题,navbar 下拉菜单右边位置问题。
- - 文件管理：有滚动条时,上下超过可视区域框选问题修复,统一和win操作一致。
- - 文件大小写不敏感设置,扩展名获取bug
- - 目录读取权限判断,解决“系统错误”相关问题。
+#### Fix bug:
+ - Setting common external invocation
+ - Packaged Chinese garbage problem.
+ - Simple, default theme, navbar drop-down menu to the right of where the problem.
+ - File management: when the scroll bar up and down over the visible area marquee fix, unity and win consistent operation.
+ - File not case sensitive setting, extension get bug
+ - Directory read permission judgment, solve the "system error" related issues.
 
-####update:
- - 地址栏宽度自适应优化,支持浏览器窗口调整
- - 增加远程下载功能；上传功能优化,
- - 整体样式风格优化,
- - 右键菜单优化(可持续粘贴,剪切后粘贴清空剪贴板)。
- - 新建文件、文件重命名高度自适应优化
- - 关闭调试状态错误信息
- - 图片播放幻灯片优化,支持浏览器窗口调整,解决事件绑定bug,添加图片倒影；添加关闭按钮,关闭动画等功能
- - 优化桌面,弹出层层级问题；任务栏为最上层
- - 优化多标签,没有标签时不显示标签容器,放至层级覆盖
- - 地址栏超出宽度,自动隐藏最左边内容
- - 右键菜单状态同步,排序方式初始化当前值,设置后标记当前值。
- - 优化编辑器：拖动内容&文件到编辑区,内容处理。
- - 拖拽上传,信息框自动隐出后关闭
- - setting,editor,player最小化时,再次调用则显示出弹出层
- - 优化影音播放器,皮肤及相关配置信息存储于js中,不用之前的服务器请求方式,修改皮肤后可以直接更新到界面上。
+#### Update:
+ - The address bar width adaptive optimization, support the browser window adjustment
+ - Added remote download; upload function optimization,
+ - Optimization of the overall style style,
+ - Right menu optimization (Sustainable paste, cut and paste after emptying the clipboard).
+ - Create a new file, rename the file highly adaptive optimization
+ - Close the debug status error message
+ - Picture slideshow optimized to support the browser window adjustment, resolve incidents binding bug, add a picture reflection; add a close button to close the animation feature
+ - Optimized Desktop, pop-layer-level issues; taskbar to the top
+ - Optimization of multi-tag is not displayed when there is no label on the container label, put to level coverage
+ - Beyond the width of the address bar, auto-hide the leftmost content
+ - Right-menu state synchronization, sort Initialize the current value, the current value after setting the mark.
+ - Optimization Editor: Drag the file into the editor content & content processing.
+ - Drag and drop upload message box automatically hidden after a close
+ - Setting, editor, when the player is minimized, then called again exhibit the popup
+ - Optimize video player, skin and related configuration information is stored in the js, without prior request servers manner, modified skin can be updated directly to the interface.
 
 
-###ver1.01 `2013/9/10`
+### Ver1.01 `2013/9 / 10`
 -----
-####fix bug:
- - 添加到收藏
- - simple,default主题,navbar 下拉菜单右边位置问题。
+#### Fix bug:
+ - Add to Favorites
+ - Simple, default theme, navbar drop-down menu to the right of where the problem.
 
-####update:
- - 添加到收藏夹,修改收藏夹,更新文件管理收藏夹部分。
- - 修改主题,同时修改编辑器主题。【编辑区,文件管理,桌面】
- - 优化setting部分代码,整合为一个整体。
- - 优化debug,增加less编译,导出功能优化,先编译后复制再操作
+#### Update:
+ - Add to Favorites, Favorites modify, update files Manage Favorites section.
+ - Modify the theme, and modify the theme editor. [Edit area, file management, desktop]
+ - Optimization setting part of the code, integrated into a whole.
+ - Optimization of debug, increased less compilation, optimization and export functions, compiled after the first operation and then copy
 
 
-###ver1.0  `2013.9.1`
+### Ver1.0 `2013.9.1`
 -----
-####update:
- - 代码模块化优化,静态文件分离,可以分开部署
- - 编辑器单独逻辑提取,完整融合到文件管理,树目录融合文件管理,懒加载语法高亮
- - 多标签实现,弹层对话框多标签支持,桌面任务栏实现；编辑器多标签支持
- - 弹层功能优化,实现最大最小化,最小化关联多标签任务栏管理
+#### Update:
+ - Optimization of the code modularization, separation of static files that can be deployed separately
+ - Editor single logical extraction, complete integration into document management, directory integration file management tree, lazy loading syntax highlighting
+ - Multi-label implementation, elastic layer dialog multi-label support, desktop taskbar to achieve; Editor supports multi-tag
+ - Elastic layer functions optimized to achieve maximum minimized, minimizing the associated multi-tabbed taskbar management
 
-####fix bug:
- - linux 下浏览器打开文件和文件夹,中文问题
- - 重命名&新建&上传 刷新列表使用动画,当前选中失效问题,不使用动画加载方式。
- - html5拖拽上传优化
+#### Fix bug:
+ - Linux under the browser to open files and folders, Chinese issue
+ - Rename & Create & Upload refresh the list of animation, the currently selected failure problem, do not use animation loading.
+ - Html5 drag upload optimization
 
 
-###ver0.8 `2013.6.15`
+### Ver0.8 `2013.6.15`
 -----
-####update:
- - 整体优化,实现全部操作ajax本地化 ,进一步提升体验
- - 浏览器强刷新,保持之前最后所在路径
- - 重命名,新建,粘贴操作后添加选中状态
- - 代码主题列表优化,重新设计,提高可配置性
- - 优化代码,添加getTplList模版,简化关联配置获取
- - 增加设置功能,ajax刷新设置。缩略图片增加tips预览(被注释frame/setting.php)
- - 增加重命名只选择名称部分功能
- - 增加iframe js api互操作ie支持。四大浏览器内核皆支持。
- - 文件夹打开,采用ajax实现。包括头部地址栏,父级目录,左边树目录以及收藏夹
- - 历史记录完美实现,前进后退按钮实时变化状态。
- - 快捷键backspace实现后退(left header main 分别加入函数,屏蔽默认history(-1)操作) - 
+#### Update:
+ - Overall optimization, to achieve full operating ajax localization further enhance the experience
+ - Strong refresh browser, where the path before finally holding
+ - Rename, New, add the selected state after the paste operation
+ - Code optimization list of topics, redesigned configurability
+ - Optimized code, add getTplList templates simplify the configuration associated with obtaining
+ - Added setting function, ajax refresh settings. Preview thumbnails increase tips (annotated frame / setting.php)
+ - Increase Rename select only part of the function name
+ - Increase interoperability ie iframe js api support. Four browser kernel are supported.
+ - Open the folder using ajax implementation. It includes a head address bar, the parent directory, the directory tree on the left and favorites
+ - History to achieve the perfect, forward and back buttons status changes in real time.
+ - Shortcuts backspace achieve backward (left header main functions were added, shielded default history (-1) operation) -
 
-####fix bug:
- - 完善修改windows以及linux获取文件列表,中文路径属性获取失败问题。
- - 复制,剪切。剪贴板内容覆盖判空处理
- - 修复一些地方ajax线程同步问题,重命名后选中失效问题解决
- - 修复返回上层目录,根目录检测
- - 修复linux下 音视频播放,中文路径问题
- - 修复文件右键菜单位置出错问题
- - 修复ie下frame js相互通信问题
- - ajax更新文件列表下,各种bug修复。进一步提升操作友好性
- - 修复当前目录改变的情况下,播放器消失的问题。现在能使播放器始终保留
+#### Fix bug:
+ - Perfection modify windows and linux obtain the file list, Chinese path attribute acquisition failures.
+ - Copy, Cut. Empty clipboard contents coverage determination process
+ - Fixed some places ajax thread synchronization problem, rename selected after failure to solve the problem
+ - Repair return to the upper directory, the root directory is detected
+ - Repair under linux audio and video playback, Chinese path problem
+ - Repair the file right-click menu location error problem
+ - Repair ie problems communicating with each other under the frame js
+ - Ajax update the file list under various bug fixes. Further enhance friendly operation
+ - Changes in the current directory under repair, the player go away. Players always make reservations now

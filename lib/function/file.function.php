@@ -7,31 +7,30 @@
 */
 
 /**
- * 系统函数：				filesize(),file_exists(),pathinfo(),rname(),unlink(),filemtime(),is_readable(),is_wrieteable();
- * 获取文件详细信息		file_info($file_name)
- * 获取文件夹详细信息		path_info($dir)
- * 递归获取文件夹信息		path_info_more($dir,&$file_num=0,&$path_num=0,&$size=0)
- * 获取文件夹下文件列表	path_list($dir)
- * 路径当前文件[夹]名		get_path_this($path)
- * 获取路径父目录			get_path_father($path)
- * 删除文件				del_file($file)
- * 递归删除文件夹			del_dir($dir)
- * 递归复制文件夹			copy_dir($source, $dest)
- * 创建目录				mk_dir($dir, $mode = 0777)
- * 文件大小格式化			size_format($bytes, $precision = 2)
- * 判断是否绝对路径		path_is_absolute( $path ) 
- * 扩展名的文件类型		ext_type($ext)
- * 文件下载				file_download($file) 
- * 文件下载到服务器		file_download_this($from, $file_name)
- * 获取文件(夹)权限		get_mode($file)  //rwx_rwx_rwx [文件名需要系统编码]
- * 上传文件(单个，多个)	upload($fileInput, $path = './');//
- * 获取配置文件项			get_config($file, $ini, $type="string")
- * 修改配置文件项			update_config($file, $ini, $value,$type="string")
- * 写日志到LOG_PATH下		write_log('dd','default|.自建目录.','log|error|warning|debug|info|db')
+ * System function: filesize (), file_exists (), pathinfo (), rname (), unlink (), filemtime (), is_readable (), is_wrieteable ();
+ * Get file details file_info ($ file_name)
+ * Get more information folder path_info ($ dir)
+ * Get recursive folder information path_info_more ($ dir, & $ file_num = 0, & $ path_num = 0, & $ size = 0)
+ * Get the file folder list path_list ($ dir)
+ * Path of the current file [Folder] name get_path_this ($ path)
+ * Get the path to the parent directory get_path_father ($ path)
+ * Delete files del_file ($ file)
+ * Recursive delete folders del_dir ($ dir)
+ * Recursively copy a folder copy_dir ($ source, $ dest)
+ * Create a directory mk_dir ($ dir, $ mode = 0777)
+ * File Size Format size_format ($ bytes, $ precision = 2)
+ * Determine whether the absolute path path_is_absolute ($ path)
+ * The extension of the file type ext_type ($ ext)
+ * File Download file_download ($ file)
+ * Download the file to the server file_download_this ($ from, $ file_name)
+ * Get the file (folder) permissions get_mode ($ file) // rwx_rwx_rwx [filename coding system required]
+ * Upload files (single, multiple) upload ($ fileInput, $ path = './');//
+ * Get the configuration file entries get_config ($ file, $ ini, $ type = "string")
+ * Modify the configuration file entries update_config ($ file, $ ini, $ value, $ type = "string")
+ * Write logs to LOG_PATH under write_log ( 'dd', 'default |. Self directory.', 'Log | error | warning | debug | info | db')
  */
-
-// 传入参数为程序编码时，有传出，则用程序编码，
-// 传入参数没有和输出无关时，则传入时处理成系统编码。
+// Parameter passed to procedure codes have heard, the application code,
+// Parameters are not passed and are not related to output, then processed into incoming coding system.
 function iconv_app($str){
 	global $config;
 	$result = iconv($config['system_charset'], $config['app_charset'], $str);
@@ -54,9 +53,9 @@ function get_filesize($path){
 	return (int)$ret;
 }
 /**
- * 获取文件详细信息
- * 文件名从程序编码转换成系统编码,传入utf8，系统函数需要为gbk
- */
+  * Get file details
+  * Filename conversion from the program code into a coding system, incoming utf8, the system needs to function gbk
+  */
 function file_info($path){
 	$name = get_path_this($path);
 	$size = get_filesize($path);
@@ -66,9 +65,9 @@ function file_info($path){
 		'ext'			=> get_path_ext($path),
 		'type' 			=> 'file',
 		'mode'			=> get_mode($path),
-		'atime'			=> fileatime($path), //最后访问时间
-		'ctime'			=> filectime($path), //创建时间
-		'mtime'			=> filemtime($path), //最后修改时间
+		'atime'			=> fileatime($path), //Last access time
+		'ctime'			=> filectime($path), //Created
+		'mtime'			=> filemtime($path), //Last Modified
 		'is_readable'	=> intval(is_readable($path)),
 		'is_writeable'	=> intval(is_writeable($path)),
 		'size'			=> $size,
@@ -77,7 +76,7 @@ function file_info($path){
 	return $info;
 }
 /**
- * 获取文件夹细信息
+ * Get folder information
  */
 function folder_info($path){
 	$info = array(
@@ -85,9 +84,9 @@ function folder_info($path){
 		'path'			=> iconv_app(get_path_father($path)),
 		'type' 			=> 'folder',
 		'mode'			=> get_mode($path),
-		'atime'			=> fileatime($path), //访问时间
-		'ctime'			=> filectime($path), //创建时间
-		'mtime'			=> filemtime($path), //最后修改时间		
+		'atime'			=> fileatime($path), //interview time
+		'ctime'			=> filectime($path), //Created
+		'mtime'			=> filemtime($path), //Last Modified		
 		'is_readable'	=> intval(is_readable($path)),
 		'is_writeable'	=> intval(is_writeable($path))
 	);
@@ -96,7 +95,7 @@ function folder_info($path){
 
 
 /**
- * 获取一个路径(文件夹&文件) 当前文件[夹]名
+ * Gets a path (file folder c) the current file [Folder] name
  * test/11/ ==>11 test/1.c  ==>1.c
  */
 function get_path_this($path){
@@ -104,7 +103,7 @@ function get_path_this($path){
     return substr($path,strrpos($path,'/')+1);
 } 
 /**
- * 获取一个路径(文件夹&文件) 父目录
+ * Gets a path (file folder c) parent directory
  * /test/11/==>/test/   /test/1.c ==>/www/test/
  */
 function get_path_father($path){
@@ -112,7 +111,7 @@ function get_path_father($path){
     return substr($path, 0, strrpos($path,'/')+1);
 }
 /**
- * 获取扩展名
+ * Get extensions
  */
 function get_path_ext($path){
     $name = get_path_this($path);
@@ -129,20 +128,20 @@ function get_path_ext($path){
 
 
 
-//自动获取不重复文件(夹)名
-//如果传入$file_add 则检测存在则自定重命名  a.txt 为a{$file_add}.txt
+//Does not automatically obtain duplicate files (folder) name
+//If the incoming $file_add is detected the presence of the custom rename a.txt as a {$ file_add} .txt
 function get_filename_auto($path,$file_add = "",$same_file_type=''){
-	if (is_dir($path)) {//文件夹则忽略
+	if (is_dir($path)) {//Folders are ignored
 		return $path;
 	}
 
-	//重名处理方式;replace,skip,filename_auto
+	//Chong Ming treatment; replace, skip, filename auto
 	if ($same_file_type == '') {
 		$same_file_type = 'replace';
 	}
 
 
-	//重名处理
+	//Processing the same name
 	if (file_exists($path)) {
 		if ($same_file_type=='replace') {
 			return $path;
@@ -172,7 +171,7 @@ function get_filename_auto($path,$file_add = "",$same_file_type=''){
 }
 
 /**
- * 判断文件夹是否可写
+ * Analyzing folder is writable
  */
 function path_writable($path) {	
 	$file = $path.'/test'.time().'.txt';
@@ -183,7 +182,7 @@ function path_writable($path) {
 }
 
 /**
- * 获取文件夹详细信息,文件夹属性时调用，包含子文件夹数量，文件数量，总大小
+ * Get more information folder, call the folder attributes, including sub-folders, number of files, the total size
  */
 function path_info($path){
 	//if (!is_dir($path)) return false;
@@ -193,7 +192,7 @@ function path_info($path){
 }
 
 /**
- * 检查名称是否合法
+ * Check the name of legality
  */
 function path_check($path){
 	$check = array('/','\\',':','*','?','"','<','>','|');
@@ -208,7 +207,7 @@ function path_check($path){
 }
 
 /**
- * 递归获取文件夹信息： 子文件夹数量，文件数量，总大小
+ * Get recursive folder information: the number of sub-folders, number of files, the total size
  */
 function _path_info_more($dir, &$file_num = 0, &$path_num = 0, &$size = 0){
 	if (!$dh = opendir($dir)) return false;
@@ -234,7 +233,7 @@ function _path_info_more($dir, &$file_num = 0, &$path_num = 0, &$size = 0){
 
 
 /**
- * 获取多选文件信息,包含子文件夹数量，文件数量，总大小，父目录权限
+ * Get more information on the selected file, containing sub-folders, number of files, the total size of the parent directory permissions
  */
 function path_info_muti($list,$time_type){
 	if (count($list) == 1) {
@@ -271,9 +270,9 @@ function path_info_muti($list,$time_type){
 }
 
 /** 
- * 获取文件夹下列表信息
- * dir 包含结尾/   d:/wwwroot/test/
- * 传入需要读取的文件夹路径,为程序编码
+* Get a list of the information folder
+  * Dir Contains Ends / d: / wwwroot / test /
+  * Needs to read the incoming folder path for program code
  */
 function path_list($dir,$list_file=true,$check_children=false){
 	$dir = rtrim($dir,'/').'/';
@@ -301,18 +300,18 @@ function path_list($dir,$list_file=true,$check_children=false){
 	return array('folderlist' => $folderlist,'filelist' => $filelist);
 }
 
-// 判断文件夹是否含有子内容【区分为文件或者只筛选文件夹才算】
+// Determine whether the folder containing the file is divided into sub-content [or] considered only filter folder
 function path_haschildren($dir,$check_file=false){
 	$dir = rtrim($dir,'/').'/';
 	if (!$dh = @opendir($dir)) return false;
 	while (($file = readdir($dh)) !== false){
 		if ($file != "." && $file != "..") {
 			$fullpath = $dir.$file;
-			if ($check_file) {//有子目录或者文件都说明有子内容
+			if ($check_file) {//Subdirectories or files illustrate the sub-content
 				if(is_file($fullpath) || is_dir($fullpath.'/')){
 					return true;
 				}
-			}else{//只检查有没有文件
+			}else{//There are no checks only files
 				@$ret =(is_dir($fullpath.'/'));
 				return (bool)$ret;
 			}
@@ -323,7 +322,7 @@ function path_haschildren($dir,$check_file=false){
 }
 
 /**
- * 删除文件 传入参数编码为操作系统编码. win--gbk
+ * Delete the file encoding parameters passed to the operating system encoding win -. Gbk
  */
 function del_file($fullpath){
 	if (!@unlink($fullpath)) { // 删除不了，尝试修改文件权限
@@ -337,7 +336,7 @@ function del_file($fullpath){
 } 
 
 /**
- * 删除文件夹 传入参数编码为操作系统编码. win--gbk
+ * To delete a folder for incoming parameter encoding for the operating system encoding win -. Gbk
  */
 function del_dir($dir){
 	if (!$dh = opendir($dir)) return false;
@@ -345,7 +344,7 @@ function del_dir($dir){
 		if ($file != "." && $file != "..") {
 			$fullpath = $dir . '/' . $file;
 			if (!is_dir($fullpath)) {
-				if (!unlink($fullpath)) { // 删除不了，尝试修改文件权限
+				if (!unlink($fullpath)) { // Not deleted, try to modify the file permissions
 					chmod($fullpath, 0777);
 					if (!unlink($fullpath)) {
 						return false;
@@ -368,19 +367,19 @@ function del_dir($dir){
 } 
 
 /**
- * 复制文件夹 
- * eg:将D:/wwwroot/下面wordpress复制到
- *	D:/wwwroot/www/explorer/0000/del/1/
- * 末尾都不需要加斜杠，复制到地址如果不加源文件夹名，
- * 就会将wordpress下面文件复制到D:/wwwroot/www/explorer/0000/del/1/下面
- * $from = 'D:/wwwroot/wordpress';
- * $to = 'D:/wwwroot/www/explorer/0000/del/1/wordpress';
+* Copy Folder
+  * Eg: to D: / wwwroot / copied to the following wordpress
+  * D: / wwwroot / www / explorer / 0000 / del / 1 /
+  * Do not need to add a slash at the end, if we do not address copied to the source folder name,
+  * Copies the following files to the wordpress D: / wwwroot / www / explorer / 0000 / del / 1 / below
+  * $ From = 'D: / wwwroot / wordpress';
+  * $ To = 'D: / wwwroot / www / explorer / 0000 / del / 1 / wordpress';
  */
 
 function copy_dir($source, $dest){
 	if (!$dest) return false;
 
-	if ($source == substr($dest,0,strlen($source))) return;//防止父文件夹拷贝到子文件夹，无限递归
+	if ($source == substr($dest,0,strlen($source))) return;//Prevent the parent folder copied to a subfolder, infinite recursion
 	$result = false;
 	if (is_file($source)) {
 		if ($dest[strlen($dest)-1] == '/') {
@@ -414,7 +413,7 @@ function copy_dir($source, $dest){
 }
 
 /**
- * 创建目录
+ * Create a directory
  * 
  * @param string $dir 
  * @param int $mode 
@@ -431,9 +430,9 @@ function mk_dir($dir, $mode = 0777){
 }
 
 /*
-* 获取文件&文件夹列表(支持文件夹层级)
-* path : 文件夹 $dir ——返回的文件夹array files ——返回的文件array 
-* $deepest 是否完整递归；$deep 递归层级
+* Get a list of files & folders (supports folder hierarchy)
+* Path: Folder $ dir - return folder array files - files array returned
+* $ Deepest is complete recursive; $ deep recursion level
 */
 function recursion_dir($path,&$dir,&$file,$deepest=-1,$deep=0){
 	$path = rtrim($path,'/').'/';
@@ -456,9 +455,9 @@ function recursion_dir($path,&$dir,&$file,$deepest=-1,$deep=0){
 	return true;
 }
 /*
- * $search 为包含的字符串 
- * is_content 表示是否搜索文件内容;默认不搜索
- * is_case  表示区分大小写,默认不区分
+* $ Search is a string containing
+  * Is_content indicates whether to search for the file contents; the default does not search
+  * Is_case indicates case-insensitive, does not distinguish between the default
  */
 function path_search($path,$search,$is_content=false,$file_ext='',$is_case=false){
 	$ext_arr=explode("|",$file_ext);
@@ -471,8 +470,8 @@ function path_search($path,$search,$is_content=false,$file_ext='',$is_case=false
 	foreach($files as $f){
 		$ext = get_path_ext($f);
 		$path_this = get_path_this($f);
-		if ($file_ext !='' && !in_array($ext,$ext_arr)) continue;//文件类型不在用户限定内
-		if ($strpos($path_this,$search) !== false){//搜索文件名;搜到就返回；搜不到继续
+		if ($file_ext !='' && !in_array($ext,$ext_arr)) continue;//User-defined file type is not within
+		if ($strpos($path_this,$search) !== false){//Search for file names; search to return; not search continues
 			$filelist[] = file_info($f);
 			continue;
 		}
@@ -485,7 +484,7 @@ function path_search($path,$search,$is_content=false,$file_ext='',$is_case=false
 			}
 		}
 	}
-	if ($file_ext == '') {//没限定扩展名则才搜索文件夹
+	if ($file_ext == '') {//Extension is not limited only to search folders
 		foreach($dirs as $f){
 			$path_this = get_path_this($f);
 			if ($strpos($path_this,$search) !== false){
@@ -500,9 +499,9 @@ function path_search($path,$search,$is_content=false,$file_ext='',$is_case=false
 }
 
 /**
- * 修改文件、文件夹权限
- * @param  $path 文件(夹)目录
- * @return :string
+* Modify the file, folder permissions
+  * @param $ Path file (folder) directory
+  * @return: String
  */
 function chmod_path($path,$mod){
 	//$mod = 0777;//
@@ -521,11 +520,11 @@ function chmod_path($path,$mod){
 } 
 
 /**
- * 文件大小格式化
- * 
- * @param  $ :$bytes, int 文件大小
- * @param  $ :$precision int  保留小数点
- * @return :string
+* File size Format
+  *
+  * @param $: $ Bytes, int file size
+  * @param $: $ Precision int decimal places
+  * @return: String
  */
 function size_format($bytes, $precision = 2){
 	if ($bytes == 0) return "0 B";
@@ -543,19 +542,19 @@ function size_format($bytes, $precision = 2){
 } 
 
 /**
- * 判断路径是不是绝对路径
- * 返回true('/foo/bar','c:\windows').
- * 
- * @return 返回true则为绝对路径，否则为相对路径
+* Analyzing the path is not an absolute path
+  * Returns true ( '/ foo / bar', 'c: \ windows').
+  *
+  * @return Returns true compared with the absolute path, or a relative path
  */
 function path_is_absolute($path){
-	if (realpath($path) == $path)// *nux 的绝对路径 /home/my
+	if (realpath($path) == $path)// unix absolute path of / home / my
 		return true;
 	if (strlen($path) == 0 || $path[0] == '.')
 		return false;
-	if (preg_match('#^[a-zA-Z]:\\\\#', $path))// windows 的绝对路径 c:\aaa\
+	if (preg_match('#^[a-zA-Z]:\\\\#', $path))// windows absolute path c: \ aaa \
 		return true;
-	return (bool)preg_match('#^[/\\\\]#', $path); //绝对路径 运行 / 和 \绝对路径，其他的则为相对路径
+	return (bool)preg_match('#^[/\\\\]#', $path); //Absolute paths run / and \ absolute path, the other was a relative path
 } 
 
 /**
@@ -585,13 +584,13 @@ function ext_type($ext){
 } 
 
 /**
- * 输出、文件下载
- * 默认以附件方式下载；$download为false时则为输出文件
+* Output, file download
+  * Default attachment download; $ download is false when compared to the output file
  */
 function file_put_out($file,$download=false){
 	if (!is_file($file)) show_json('not a file!');
 	set_time_limit(0); 
-	//ob_clean();//清除之前所有输出缓冲
+	//ob_clean();//Clear until all output buffers
 	if (!file_exists($file)) show_json('file not exists',false);
 	if (isset($_SERVER['HTTP_RANGE']) && ($_SERVER['HTTP_RANGE'] != "") && 
 		preg_match("/^bytes=([0-9]+)-$/i", $_SERVER['HTTP_RANGE'], $match) && ($match[1] < $fsize)) { 
@@ -601,11 +600,11 @@ function file_put_out($file,$download=false){
 	}
 	$size = get_filesize($file);
 	$mime = get_file_mime(get_path_ext($file));
-	if ($download || strstr($mime,'application/')) {//下载或者application则设置下载头
-		$filename = get_path_this($file);//解决在IE中下载时中文乱码问题
+	if ($download || strstr($mime,'application/')) {//Download or download application is set head
+		$filename = get_path_this($file);//Download IE resolve when Chinese garbage problem
 		if( preg_match('/MSIE/',$_SERVER['HTTP_USER_AGENT']) || 
 			preg_match('/Trident/',$_SERVER['HTTP_USER_AGENT'])){
-			if($GLOBALS['config']['system_os']!='windows'){//win主机 ie浏览器；中文文件下载urlencode问题
+			if($GLOBALS['config']['system_os']!='windows'){//win the host ie browser; Chinese file download urlencode problem
 				$filename = str_replace('+','%20',urlencode($filename));
 			}
 		}
@@ -628,7 +627,7 @@ function file_put_out($file,$download=false){
 	$fp = fopen($file, "rb");
 	fseek($fp, $start);
 	while (!feof($fp)) {
-		print (fread($fp, 1024 * 8)); //输出文件  
+		print (fread($fp, 1024 * 8)); //Output File  
 		flush(); 
 		ob_flush();
 	}  
@@ -636,8 +635,8 @@ function file_put_out($file,$download=false){
 }
 
 /**
- * 远程文件下载到服务器
- * 支持fopen的打开都可以；支持本地、url 
+* Remote file is downloaded to the server
+  * Support for fopen can open; support local, url
  * 
  */
 function file_download_this($from, $file_name){
@@ -649,13 +648,13 @@ function file_download_this($from, $file_name){
 
 		$download_fp = @fopen ($file_name, "wb");
 		while(!feof($fp)){
-			if(!file_exists($file_name)){//删除目标文件；则终止下载
+			if(!file_exists($file_name)){//Delete the target file; download is terminated
 				fclose($download_fp);
 				return false;
 			}
 			fwrite($download_fp, fread($fp, 1024 * 8 ), 1024 * 8);
 		}
-		//下载完成，重命名临时文件到目标文件
+		//The download is complete, rename the temporary file to the destination
 		fclose($download_fp);		
 		return true;
 	}else{
@@ -664,7 +663,7 @@ function file_download_this($from, $file_name){
 }
 
 /**
- * 获取文件(夹)权限 rwx_rwx_rwx
+ * Get File (folder) permissions rwx_rwx_rwx
  */
 function get_mode($file){
 	$Mode = fileperms($file);
@@ -700,7 +699,7 @@ function get_mode($file){
 } 
 
 /**
- * 获取可以上传的最大值
+ * Get the maximum value can upload
  * return * byte
  */
 function get_post_max(){
@@ -713,8 +712,8 @@ function get_post_max(){
 }
 
 /**
- * 文件上传处理。单个文件上传,多个分多次请求
- * 调用demo
+ * Handling file uploads. Single file upload, multiple in multiple requests
+ *Call demo
  * upload('file','D:/www/');
  */
 function upload($fileInput, $path = './'){
@@ -731,7 +730,7 @@ function upload($fileInput, $path = './'){
 	}
 }
 
-//分片上传处理
+//Fragment upload process
 function upload_chunk($fileInput, $path = './',$temp_path){
 	global $config,$L;
 	$file = $_FILES[$fileInput];
@@ -740,7 +739,7 @@ function upload_chunk($fileInput, $path = './',$temp_path){
 	if (!isset($file)) show_json($L['upload_error_null'],false);
 	$file_name = iconv_system($file['name']);
 
-	if ($chunks>1) {//并发上传，不一定有前后顺序
+	if ($chunks>1) {//Concurrent upload, not necessarily the order
 		$temp_file_pre = $temp_path.md5($temp_path.$file_name).'.part';
 		if (get_filesize($file['tmp_name']) ==0) {
 			show_json($L['upload_success'],false,'chunk_'.$chunk.' error!');
@@ -777,8 +776,8 @@ function upload_chunk($fileInput, $path = './',$temp_path){
 		}
 	}
 
-	//正常上传
-	$save_path = get_filename_auto($path.$file_name); //自动重命名
+	//Normal upload
+	$save_path = get_filename_auto($path.$file_name); //Auto Rename
 	if(move_uploaded_file($file['tmp_name'],$save_path)){
 		show_json($L['upload_success'],true,iconv_app($save_path));
 	}else {
@@ -787,16 +786,16 @@ function upload_chunk($fileInput, $path = './',$temp_path){
 }
 
 /**
- * 写日志
- * @param string $log   日志信息
- * @param string $type  日志类型 [system|app|...]
- * @param string $level 日志级别
+* Write log
+  * @param String $ log log information
+  * @param String $ type log type [system | app | ...]
+  * @param String $ level log level
  * @return boolean
  */
 function write_log($log, $type = 'default', $level = 'log'){
 	$now_time = date('[y-m-d H:i:s]');
 	$now_day  = date('Y_m_d');
-	// 根据类型设置日志目标位置
+	// Depending on the type Set the log destination
 	$target   = LOG_PATH . strtolower($type) . '/';
 	mk_dir($target, 0777);
 	if (! is_writable($target)) exit('path can not write!');
@@ -808,7 +807,7 @@ function write_log($log, $type = 'default', $level = 'log'){
 		case 'db':		$target .= 'Db_' . $now_day . '.log';break;
 		default:		$target .= 'Log_' . $now_day . '.log';break;
 	}
-	//检测日志文件大小, 超过配置大小则重命名
+	//Test log file size exceeds the configured size rename
 	if (file_exists($target) && get_filesize($target) <= 100000) {
 		$file_name = substr(basename($target),0,strrpos(basename($target),'.log')).'.log';
 		rename($target, dirname($target) .'/'. $file_name);

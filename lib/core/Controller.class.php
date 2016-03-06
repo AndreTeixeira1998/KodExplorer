@@ -7,18 +7,18 @@
 */
 
 /**
- * 控制器抽象类
+ * The controller abstract class
  */
 abstract class Controller {
 	public $in;
 	public $db;
-	public $config;	// 全局配置
-	public $tpl;	// 模板目录
-	public $values;	// 模板变量
+	public $config;	// Global Configuration
+	public $tpl;	// Template directory
+	public $values;	// Template Variables
 	public $L;
 
 	/**
-	 * 构造函数
+	 * Constructor
 	 */
 	function __construct(){
 		global $in,$config,$db,$L;
@@ -32,7 +32,7 @@ abstract class Controller {
 	} 
 
 	/**
-	 * 加载模型
+	 * Load Model
 	 * @param string $class 
 	 */
 	public function loadModel($class){
@@ -42,7 +42,7 @@ abstract class Controller {
 	} 
 
 	/**
-	 * 加载类库文件
+	 * Load library file
 	 * @param string $class 
 	 */
 	public function loadClass($class){
@@ -58,7 +58,7 @@ abstract class Controller {
 	}
 
 	/**
-	 * 显示模板
+	 * Show Templates
 	 * 
 	 * TODO smarty
 	 * @param
@@ -67,7 +67,7 @@ abstract class Controller {
 		$this->values[$key] = $value;
 	} 
 	/**
-	 * 显示模板
+	 * Show Templates
 	 * @param
 	 */
 	protected function display($tpl_file){

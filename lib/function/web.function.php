@@ -8,10 +8,10 @@
 
 
 /**
- * 获取客户端IP地址
- * 
- * @param boolean $s_type ip类型[ip|long]
- * @return string $ip
+* Get Client IP Address
+  *
+  * @param Boolean $ s_type ip type [ip | long]
+  * @return String $ ip
  */
 function get_client_ip($b_ip = true){
 	$arr_ip_header = array( 
@@ -36,7 +36,7 @@ function get_client_ip($b_ip = true){
 } 
 
 
-// url头部数据
+// url header data
 function url_header($url){
 	$name = '';$length=0;
 	$header = @get_headers($url,true);
@@ -72,7 +72,7 @@ function url_header($url){
 } 
 
 
-// url检查
+// Check the url
 function check_url($url){
 	$array = get_headers($url,true);
 	if (preg_match('/404/', $array[0])) {
@@ -85,7 +85,7 @@ function check_url($url){
 } 
 
 /**
- * 获取网络url文件内容，加入ua，以解决防采集的站
+ * Get web url file contents, adding ua, to address the anti-acquisition station
  */
 function curl_get_contents($url){
 	$ch = curl_init();
@@ -101,11 +101,11 @@ function curl_get_contents($url){
 	return $file_contents;
 }
 
-// 返回refer URL 地址
+// Back referer URL address
 function refer_url(){
 	return isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : '';
 } 
-// 返回当前页面的 URL 地址
+// Returns the URL address of the current page
 function this_url(){
 	$s_url = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] ? 'https' : 'http';
 	$s_url .= '://';
@@ -132,11 +132,11 @@ function stripslashes_deep($value){
 }
 
 /**
- * GET/POST数据统一入口
- * 将GET和POST的数据进行过滤，去掉非法字符以及hacker code，返回一个数组
- * 注意如果GET和POST有相同的Key，POST优先
- * 
- * @return array $_GET和$_POST数据过滤处理后的值
+* GET / POST data unified entrance
+  * GET and POST data will be filtered to remove illegal characters and hacker code, it returns an array
+  * Note If GET and POST have the same Key, POST priority
+  *
+  * Value @return array $ _GET and $ _POST data filtering process
  */
 function parse_incoming(){
 	global $_GET, $_POST,$_COOKIE;
@@ -171,28 +171,28 @@ function url2absolute($index_url, $preg_url){
 	return $index_url_temp;
 }
 
-// 将字符串转换成URL的编码，gbk的和utf8的 $to="gbk" 或"utf8"
+// To convert a string into an encoded URL's, gbk utf8 and the $ to = "gbk" or "utf8"
 function urlcode($str, $to){
 	if ($to == "gbk") {
-		$result = RawUrlEncode($str); //gbk字符(主要是中文)转换为url %BA%EC形式
+		$result = RawUrlEncode($str); //gbk characters (mostly Chinese) convert url% BA% EC form
 	} else {
-		$key = mb_convert_encoding($str, "utf-8", "gbk"); //对于百度utf8中文url
+		$key = mb_convert_encoding($str, "utf-8", "gbk"); //For Baidu utf8 Chinese url
 		$result = urlencode($key);
 	} 
 	return $result;
 } 
 
-// 输出js
+// Output js
 function exec_js($js){
 	echo "<script language='JavaScript'>\n" . $js . "</script>\n";
 } 
-// 禁止缓存
+// Disable caching
 function no_cache(){
 	header("Pragma:no-cache\r\n");
 	header("Cache-Control:no-cache\r\n");
 	header("Expires:0\r\n");
 } 
-// 生成javascript转向
+// Generate javascript turned
 function go_url($url, $msg = ''){
 	header("Content-type: text/html; charset=utf-8\r\n");
 	echo "<script type='text/javascript'>\n";
@@ -202,16 +202,16 @@ function go_url($url, $msg = ''){
 } 
 
 /**
- * 消息框。eg
- * msg("falied","/",10);
- * msg("ok");
+* Message box. eg 
+* msg ( "failed", "/", 10); 
+* msg ( "ok");
  */
 function show_msg($message, $url = '#', $time = 3, $isgo = 1)
 {
 	$goto = "content='$time;url=$url'";
 	if ($isgo != "1") {
 		$goto = "";
-	} //是否自动跳转
+	} //Whether automatically jump
 	echo<<<END
 <html>
 	<meta http-equiv='refresh' $goto charset="utf-8">
@@ -223,9 +223,9 @@ function show_msg($message, $url = '#', $time = 3, $isgo = 1)
 	</style>
 	<body>
 	<div id="msgbox">
-	<div id="title">提示信息</div>
+	<div id="title">Tips</div>
 	<div id="message">$message</div>
-	<div id="info">$time 秒后自动跳转，如不想等待可 <a href='$url'>点击这里</a></div></center>
+	<div id="info">$time Seconds after the jump, as you do not want to wait <a href='$url'>click here</a></div></center>
 	</body>
 </html>
 END;
@@ -291,7 +291,7 @@ function send_http_status($i_status, $s_message = ''){
 	} 
 } 
 
-// 获取操作系统信息
+// Get operating system information
 function get_os (){
 	$agent = $_SERVER['HTTP_USER_AGENT'];
 	$os = false;
@@ -349,7 +349,7 @@ function get_os (){
 	return $os;
 }
 
-//根据扩展名获取mime
+//Get mime by extension
 function get_file_mime($ext){
 	$mimetypes = array(
 		"323" => "text/h323",
@@ -546,7 +546,7 @@ function get_file_mime($ext){
 		"zip" => "application/zip"
 	);
 	
-	//代码 或文本浏览器输出
+	//Code or text browser output
 	$text = array('oexe','inc','inf','csv','log','asc','tsv');
 	$code = array("abap","abc","as","ada","adb","htgroups","htpasswd","conf","htaccess","htgroups",
 				"htpasswd","asciidoc","asm","ahk","bat","cmd","c9search_results","cpp","c","cc","cxx","h","hh","hpp",

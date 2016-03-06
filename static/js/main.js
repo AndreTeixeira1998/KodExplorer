@@ -51,7 +51,7 @@ var dialog_tpl_html = "<div class='update_box'>\
     </div>\
 </div>";
 define(function(require, exports) {
-	var server_version = '3.01';//最新版本
+	var server_version = '3.01';//The latest version
 	var local_version  = G.version;
 	var readmore_href  = 'http://kalcaddle.com/download.html';
 	var current_version_file = 'http://static.kalcaddle.com/download/update/2.0-'+server_version+'.zip';
@@ -89,7 +89,7 @@ define(function(require, exports) {
 			}
 		});
 	};
-	//自动更新
+	//Automatic Updates
 	var update = function(){
 		if (G.is_root !=1) return;
 		var id = 'check_version_dialog',
@@ -106,13 +106,13 @@ define(function(require, exports) {
 		_download(new_file,save_to,function(data){
 			if (data.code) {
 				var zipfile = data.info;
-				if (zipfile.length<20) {//新的远程下载返回文件名 之前为全名。
+				if (zipfile.length<20) {//Back before the new file name for the remote download full name.
 					zipfile = save_to+zipfile;
 				}
  				var remove = 'list=[{"type":"file","path":"'+urlEncode(zipfile)+'"}]';
 				_unzip(zipfile,G.basic_path,function(data){
-					if (data.code) {//更新成功
-						_remove(remove,function(){//删除下载的安装包
+					if (data.code) {//update completed
+						_remove(remove,function(){//Delete the downloaded installation package
 							Cookie.del(kod_user_online);
 							$press.addClass('hidden');
 							$tips.html(LNG.update_success);
@@ -121,20 +121,20 @@ define(function(require, exports) {
 								.removeClass('update_click')
 								.addClass('this')
 								.html(LNG.update_success);
-							setTimeout(function(){//更新完自动刷新
+							setTimeout(function(){//End update automatically refresh
 								FrameCall.goRefresh();
 							},2000);
 						});
 						return;
 					}
-					//解压失败
+					//Decompression failed
 					$press.addClass('hidden');
 					$tips.html(LNG.update_unzip_fail);
 					$button.removeClass('hidden').html(LNG.update_auto_update);
 				});
 				return;
 			}
-			//解压失败
+			//Decompression failed
 			$press.addClass('hidden');
 			$tips.html(LNG.update_download_fail);
 			$button.removeClass('hidden').html(LNG.update_auto_update);			
@@ -190,7 +190,7 @@ define(function(require, exports) {
 		}
 	};
 
-	//自动检查版本，自动更新
+	//Automatic detection version, automatic updates
 	var check_version = function(display){
 		var ver_new = parseFloat(server_version),
 			ver_local = parseFloat(local_version),
@@ -200,7 +200,7 @@ define(function(require, exports) {
         if (local_version.indexOf('commercial') >1) return;
 		//if (ver_new != ver_local) has_new=true;
 
-		//对话框显示
+		//Dialog box is displayed
 		var show_dialog = function(){
 			var id = 'check_version_dialog';
 			if ($('.'+id).length==0) {
@@ -230,7 +230,7 @@ define(function(require, exports) {
 						Cookie.del(key_timeout);
 				});
 				$('.'+id).find('.ignore').die('click').live('click',function(){
-					//设置cookie一年有效,2天后检查;
+					//Setting cookie effective one year, two days after the inspection;
 					Cookie.set(key_timeout,time()+3600*24*2,24*365);
 					art.dialog.list[id].close();
 				});
@@ -238,14 +238,14 @@ define(function(require, exports) {
 		};
 
 		if (display) show_dialog();
-		if (has_new && //第一次
+		if (has_new && //the first time
 			(Cookie.get(key_timeout) == undefined ||
 			 Cookie.get(key_timeout) <= time())) {
 			show_dialog();
 		}
 	};
 	var user_state = function(){
-		//当前版本
+		//current version
 		//if (Cookie.get(kod_user_online) != undefined) return;
 		var url = status_href+'?is_root='+G.is_root
 				  +'&host='+urlEncode(G.app_host)+'&version='+local_version;
@@ -253,17 +253,17 @@ define(function(require, exports) {
 			Cookie.set(kod_user_online,'check-at-'+time(),24);
 		});
 	};
-	//入口函数,没有参数则默认检查版本
+	//Entry function, there is no default parameter to check the version
 	var todo = function(action) {
 		switch(action){
 			case undefined:
-				//自动检查版本,有更新才跳出对话框
+				//Automatically check the version, just out of the dialog box updates
 				if (G.is_root == 1) {
 					check_version(false);
 				}
 				user_state();
 				break;
-			case 'check':check_version(true);break;//检查版本,显示版本信息
+			case 'check':check_version(true);break;//Check the version display version information
 			default:break;
 		}
 	};

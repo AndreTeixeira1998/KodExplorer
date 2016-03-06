@@ -7,27 +7,27 @@
 */
 
 
-//配置数据,可在setting_user.php中更改覆盖
+//Configuration data, you can change the cover in setting user.php
 $config['settings'] = array(
-	'download_url_time'	=> 0,			//下载地址生效时间，按秒计算，0代表不限制，默认不限制
-	'upload_chunk_size'	=> 1024*1024*2,	//上传分片大小；默认1M
+	'download_url_time'	=> 0,			//Download the effective time, in seconds, 0 for no limit, no limit default
+	'upload_chunk_size'	=> 1024*1024*2,	//Upload fragment size; default 1M
 	'version_desc'		=> 'product',
 );
 
 
-//初始化系统配置
+//Initialize the system configuration
 $config['setting_system_default'] = array(
 	'system_password'	=> rand_string(10),
 	'system_name'		=> "KodExplorer",
-	'system_desc'		=> "——芒果云.资源管理器",
-	'path_hidden'		=> ".DS_Store,.gitignore",//目录列表隐藏的项
-	'auto_login'		=> "0",			// 是否自动登录；登录用户为guest
-	'first_in'			=> "explorer",	// 登录后默认进入[explorer desktop,editor]
-	'new_user_app'		=> "365日历,pptv直播,ps,qq音乐,搜狐影视,时钟,天气,水果忍者,计算器,豆瓣电台,音悦台,icloud",
+	'system_desc'		=> "- Mango Cloud Explorer",
+	'path_hidden'		=> ".DS_Store,.gitignore",//Directory listing hidden items
+	'auto_login'		=> "0",			// Whether to automatically log in; the login user is guest
+	'first_in'			=> "explorer",	// After logging in to enter [explorer desktop, editor]
+	'new_user_app'		=> "365 calendar, pptv live, pps, qq music, Sohu video, clock, weather, fruit ninja, calculator, watercress radio, Yin Yue Taiwan, icloud", // this may break
 	'new_user_folder'	=> "download,music,image,desktop",
 );
 
-// 配置项可选值
+// Optional configuration value entries
 $config['setting_all'] = array(
 	'language' 		=> "en:English,zh_CN:简体中文,zh_TW:繁體中文",
 	'themeall'		=> "default/:<b>areo blue</b>:default,simple/:<b>simple</b>:simple,metro/:<b>metro</b>:metro,metro/blue_:metro-blue:color,metro/leaf_:metro-green:color,metro/green_:metro-green+:color,metro/grey_:metro-grey:color,metro/purple_:metro-purple:color,metro/pink_:metro-pink:color,metro/orange_:metro-orange:color",
@@ -37,7 +37,7 @@ $config['setting_all'] = array(
 	'moviethemeall'	=> "webplayer,qqplayer,vplayer,tvlive,youtube"
 );
 
-//新用户初始化配置
+//New user initial configuration
 $config['setting_default'] = array(
 	'list_type'			=> "icon",		// list||icon
 	'list_sort_field'	=> "name",		// name||size||ext||mtime
@@ -49,7 +49,7 @@ $config['setting_default'] = array(
 	'movietheme'		=> "webplayer"	// movie player theme
 );
 
-//初始化默认菜单配置
+//Initialize the default menu configuration
 $config['setting_menu_default'] = array(
 	array('name'=>'desktop','type'=>'system','url'=>'index.php?desktop','target'=>'_self','use'=>'1'),
 	array('name'=>'explorer','type'=>'system','url'=>'index.php?explorer','target'=>'_self','use'=>'1'),
@@ -57,8 +57,8 @@ $config['setting_menu_default'] = array(
 	array('name'=>'adminer','type'=>'','url'=>'./lib/plugins/adminer/','target'=>'_blank','use'=>'1')
 );
 
-//权限配置；精确到需要做权限控制的控制器和方法
-//需要权限认证的Action;root组无视权限
+// Permission configuration; needs to be done to accurately controller and method of access control
+// Needs permission Certified Action; root group privileges disregard
 $config['role_setting'] = array(
 	'explorer'	=> array(
 		'mkdir','mkfile','pathRname','pathDelete','zip','unzip','pathCopy','pathChmod',
@@ -66,7 +66,7 @@ $config['role_setting'] = array(
 		'serverDownload','fileUpload','search','pathDeleteRecycle',
 		'fileDownload','zipDownload','fileDownloadRemove','fileProxy','officeView','officeSave'),
 	'app'		=> array('user_app','init_app','add','edit','del'),//
-	'user'		=> array('changePassword'),//可以设立公用账户
+	'user'		=> array('changePassword'),//You can set up the public accounts
 	'editor'	=> array('fileGet','fileSave'),
 	'userShare' => array('set','del'),
 	'setting'	=> array('set','system_setting','php_info'),

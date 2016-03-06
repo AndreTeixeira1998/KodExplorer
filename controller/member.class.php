@@ -18,14 +18,14 @@ class member extends Controller
     }
     
     /**
-     * 获取用户列表数据
+     * Get a list of user data
      */
     public function get()
     {
         show_json($this->sql->get());
     }
     /**
-     * 用户添加
+     * Adding users
      */
     public function add()
     {
@@ -53,7 +53,7 @@ class member extends Controller
     }
     
     /**
-     * 编辑
+     * Edit
      */
     public function edit()
     {
@@ -68,7 +68,7 @@ class member extends Controller
                 if ($this->in['name'] == 'admin')
                     show_json($this->L['default_user_can_not_do'], false);
                 
-                //查找到一条记录，修改为该数组
+                //Find a record, modified to the array
                 $user         = $this->sql->get($this->in['name']);
                 $user['name'] = $this->in['name_to'];
                 $user['role'] = $this->in['role_to'];
@@ -88,7 +88,7 @@ class member extends Controller
     }
     
     /**
-     * 删除
+     * Delete
      */
     public function del()
     {
@@ -111,9 +111,9 @@ class member extends Controller
         }
     }
     
-    //============内部处理函数=============
+    //============Internal handler=============
     /**
-     *初始化用户数据和配置。
+     *User data initialization and configuration.
      */
     public function _initUser($name)
     {

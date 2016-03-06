@@ -8,32 +8,32 @@
 
 
 /**
-* 数据的缓存存储类；key=>value 模式；value可以是任意类型数据。
-* 完整流程测试；读取最低5000次/s  含有写的1000次/s
-* add   添加单条数据；已存在则返回false
-* reset 重置所有数据；不传参数代表清空数据
-* get:  获取数据；获取全部；获取指定key数据；获取指定多个key的数据;查找方式获取多条数据
-*     1. get();
-*     2. get("demo")
-*     3. get(array('demo','admin'))
-*     4. get('group','','root')
-* update: 更新数据；更新指定key数据；获取指定多个key的数据; 查找方式更新多条数据
-*     1. update("demo",array('name'=>'ddd',...))
-*     2. update(array('demo','admin'),array(array('name'...),array('name'...)))
-*     3. update('group','system','root')
+* Cache storage class data; key => value mode; value can be any type of data.
+* The full flow test; minimum read 5000 times / s write containing 1000 / s
+* Add to add a single data; it exists, false
+* Reset Reset all data; the data does not pass parameter represents Empty
+* Get: access to data; catchall; Get the specified key data; a plurality of key for the specified data; find ways to obtain a plurality of data
+* 1. get ();
+* 2. get ( "demo")
+* 3. get (array ( 'demo', 'admin'))
+* 4. get ( 'group', '', 'root')
+* Update: update data; updates the specified key data; a plurality of key for the specified data; find ways to update multiple data
+* 1. update ( "demo", array ( 'name' => 'ddd', ...))
+* 2. update (array ( 'demo', 'admin'), array (array ( 'name' ...), array ( 'name' ...)))
+* 3. update ( 'group', 'system', 'root')
 *
-* replace_update($key_old,$key_new,$value_new)替换方式更新；满足key更新的需求
+* Replace_update ($ key_old, $ key_new, $ value_new) alternative update; meet key needs updating
 *
-* delete:  获取数据；获取全部；获取指定key数据；获取指定多个key的数据;查找方式获取多条数据
-*     1. delete("demo")
-*     2. delete(array('demo','admin'))
-*     3. delete('group','','root')
-*     例如:====================================
-*     ['sss':['name':'sss','group':'root'],'bbb':['name':'bbb','group':'root']
-*     ,'ccc':['name':'ccc','group':'system'],'ddd':['name':'ddd','group':'root']
-*     查找方式删除  delete('group','','root');
-*     查找方式更新  update('group','system','root');
-*     查找方式获取  get('group','','root');
+* Delete: access to data; catchall; Get the specified key data; a plurality of key for the specified data; find ways to obtain a plurality of data
+* 1. delete ( "demo")
+* 2. delete (array ( 'demo', 'admin'))
+* 3. delete ( 'group', '', 'root')
+* For example: ====================================
+* [ 'Sss': [ 'name': 'sss', 'group': 'root'], 'bbb': [ 'name': 'bbb', 'group': 'root']
+*, 'Ccc': [ 'name': 'ccc', 'group': 'system'], 'ddd': [ 'name': 'ddd', 'group': 'root']
+* Find ways to delete delete ( 'group', '', 'root');
+* Find ways to update update ( 'group', 'system', 'root');
+* Find a way to get get ( 'group', '', 'root');
 */
 define('CONFIG_EXIT', '<?php exit;?>');
 class fileCache
@@ -46,7 +46,7 @@ class fileCache
     }
     
     /**
-    * 重置所有数据；不传参数代表清空数据
+    * Reset all data; the data does not pass parameter represents Empty
     */
     public function reset($list=array()){
         $this->data = $list;
@@ -54,7 +54,7 @@ class fileCache
     }
 
     /**
-    * 添加一条数据，不能重复；如果已存在则返回false;1k次/s
+    * Add a data, can not be repeated; if it exists return false; 1k times / s
     */
     public function add($k,$v){
         if (!isset($this->data[$k])) {
@@ -66,29 +66,28 @@ class fileCache
     }
 
     /**
-    * 获取数据;不存在则返回false;100w次/s
-    * $k null   不传则返回全部;
-    * $k string 为字符串；则根据key获取数据，只有一条数据
-    * $search_value 设置时；表示以查找的方式筛选数据筛选条件为 $key=$k 值为$search_value的数据；多条
-    */
+* Get data; there is no return false; 100w times / s
+     * $ K null is returned does not pass all;
+     * $ K string is a string; then get data according to key, only one data
+     * $ Search_value when set; representation to find a way to filter data filter condition $ key = $ k $ search_value value data; a plurality of    */
     public function get($k = '',$v='',$search_value=false){
         if ($k === '') return $this->data;
         
         $search = array();
         if ($search_value === false) {
             if (is_array($k)) {
-                //多条数据获取
+                //A plurality of data acquisition
                 $num = count($k);
                 for ($i=0; $i < $num; $i++) {
                     $search[$k[$i]] = $this->data[$k[$i]];
                 }
                 return $search;
             }else if(isset($this->data[$k])){
-                //单条数据获取
+                //A single data acquisition
                 return $this->data[$k];
             }
         }else{
-            //查找内容数据方式获取；返回多条
+            //Find a way to get a single content data; a plurality of return
             foreach ($this->data as $key => $val) {
                 if ($val[$k] == $search_value) {
                     $search[$key] = $this->data[$key];
@@ -100,16 +99,16 @@ class fileCache
     }
 
     /**
-    * 更新数据;不存在;或者任意一条不存在则返回false;不进行保存
-    * $k $v string 为字符串；则根据key只更新一条数据
-    * $k $v array  array($key1,$key2,...),array($value1,$value2,...) 
-    *              则表示更新多条数据
-    * $search_value 设置时；表示以查找的方式更新数据中的数据
+* Update data; absence; or any one does not exist return false; not be saved
+     * $ K $ v string is a string; then update the data based on only one key
+     * $ K $ v array array ($ key1, $ key2, ...), array ($ value1, $ value2, ...)
+     * Indicates a plurality of data update
+     * $ Search_value set; represents the data to find ways to update data
     */
     public function update($k,$v,$search_value=false){
         if ($search_value === false) {
             if (is_array($k)) {
-                //多条数据更新
+                //A plurality of data update
                 $num = count($k);
                 for ($i=0; $i < $num; $i++) { 
                     $this->data[$k[$i]] = $v[$i];
@@ -117,13 +116,13 @@ class fileCache
                 self::save($this->file,$this->data);
                 return true;
             }else if(isset($this->data[$k])){
-                //单条数据更新
+                //A single data update
                 $this->data[$k] = $v;
                 self::save($this->file,$this->data);
                 return true;
             }
         }else{
-            //查找方式更新；更新多条
+            //Find a way to update; update multiple
             foreach ($this->data as $key => $val) {
                 if ($val[$k] == $search_value) {
                     $this->data[$key][$k] = $v;
@@ -136,7 +135,7 @@ class fileCache
     }
 
     /*
-    * 替换方式更新；满足key更新的需求
+    * Update alternatives; meet key needs updating
     */
     public function replace_update($key_old,$key_new,$value_new){
         if(isset($this->data[$key_old])){
@@ -150,12 +149,12 @@ class fileCache
     }
     
     /**
-    * 删除;不存在返回false
+    * Delete; return false does not exist
     */
     public function delete($k,$v='',$search_value=false){
         if ($search_value === false) {
             if (is_array($k)) {
-                //多条数据更新
+                //A plurality of data update
                 $num = count($k);
                 for ($i=0; $i < $num; $i++) { 
                     unset($this->data[$k[$i]]);
@@ -163,13 +162,13 @@ class fileCache
                 self::save($this->file,$this->data);
                 return true;
             }else if(isset($this->data[$k])){
-                //单条数据删除
+                //Single data deletion
                 unset($this->data[$k]);
                 self::save($this->file,$this->data);
                 return true;
             }
         }else{
-            //查找内容数据方式删除；删除多条
+            //Find a way to delete the contents of the data; delete multiple
             foreach ($this->data as $key => $val) {
                 if ($val[$k] == $search_value){
                     unset($this->data[$key]);
@@ -185,7 +184,7 @@ class fileCache
 
     //=====================================================
     /**
-    * 排序
+    * Sequence
     */
     public static function arr_sort(&$arr,$key, $type = 'asc'){
         $keysvalue = $new_array = array();
@@ -205,9 +204,9 @@ class fileCache
     }
 
     /**
-    * 加载数据；并解析成程序数据
+    * Load data; and parse the data into the program
     */
-    public static function load($file){//10000次需要4s 数据量差异不大。
+    public static function load($file){//10,000 times the amount of data required 4s little difference.
         if (!file_exists($file)) touch($file);
         $str = file_get_contents($file);
         $str = substr($str, strlen(CONFIG_EXIT));
@@ -216,19 +215,19 @@ class fileCache
         return $data;
     }
     /**
-    * 保存数据；
+    * save data;
     */
-    public static function save($file,$data){//10000次需要6s 
+    public static function save($file,$data){//10000 need 6s 
         if (!$file) return;
         if (file_exists($file) && !is_writable($file)) {
             show_json('the path "data/" can not write!',false);
         }
         if($fp = fopen($file, "w")){
-            if (flock($fp, LOCK_EX)) {  // 进行排它型锁定
+            if (flock($fp, LOCK_EX)) {  // Perform exclusive locking type
                 $str = CONFIG_EXIT.json_encode($data);
                 fwrite($fp, $str);
                 fflush($fp);            // flush output before releasing the lock
-                flock($fp, LOCK_UN);    // 释放锁定
+                flock($fp, LOCK_UN);    // Release the lock
             }
             fclose($fp);            
         }

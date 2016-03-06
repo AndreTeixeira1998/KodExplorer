@@ -24,7 +24,7 @@ class group extends Controller
 		}
 
 	/**
-	 * 用户添加
+	 * Add
 	 */
 	public
 
@@ -50,7 +50,7 @@ class group extends Controller
 		}
 
 	/**
-	 * 编辑
+	 * Edit
 	 */
 	public
 
@@ -85,7 +85,7 @@ class group extends Controller
 		}
 
 	/**
-	 * 删除
+	 * delete
 	 */
 	public
 
@@ -116,8 +116,7 @@ class group extends Controller
 	// ===========内部调用============
 
 	/**
-	 * 初始化数据 get
-	 * 只传键即可  &ext_not_allow=''&explorer-mkfile&explorer-pathRname
+	* Get only initialization data transfer key & ext not_allow = '' & explorer-mkfile & explorer-pathRname
 	 */
 	private
 	function _init_data()

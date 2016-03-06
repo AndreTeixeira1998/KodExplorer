@@ -6,18 +6,18 @@
 * @license http://kalcaddle.com/tools/licenses/license.txt
 */
 
-//处理成标准目录
+//Processed into a standard directory
 function _DIR_CLEAR($path){
     $path = htmlspecial_decode($path);
     $path = str_replace('\\','/',trim($path));
-    if (strstr($path,'../')) {//preg耗性能
+    if (strstr($path,'../')) {//preg Performance consumption
         $path = preg_replace('/\.+\/+/', '/', $path);
     }
     $path = preg_replace('/\/+/', '/', $path);
     return $path;
 }
 
-//处理成用户目录，并且不允许相对目录的请求操作
+//Processed into a user directory and does not allow the requested operation relative directory
 function _DIR($path){
     $path = _DIR_CLEAR(rawurldecode($path));
     $path = iconv_system($path);
@@ -35,7 +35,7 @@ function _DIR($path){
     return $path;
 }
 
-//处理成用户目录输出
+//Processed into a user directory output
 function _DIR_OUT(&$arr){
     xxsClear($arr);
     if (isset($GLOBALS['is_root'])&&$GLOBALS['is_root']) return;
@@ -50,7 +50,7 @@ function _DIR_OUT(&$arr){
         $arr = pre_clear($arr);
     }
 }
-//前缀处理 非root用户目录/从HOME开始
+//Prefix handle non-root user directory / HOME from the beginning
 function pre_clear($path){
     if (ST=='share') {
         return str_replace(HOME,'',$path);
@@ -93,11 +93,11 @@ function htmlspecial_decode($str){
     );
 }
 
-//扩展名权限判断
+//Extension Permissions judgment
 function checkExtUnzip($s,$info){
     return checkExt($info['stored_filename']);
 }
-//扩展名权限判断 有权限则返回1 不是true
+//Extension Permissions judge has permission 1 is not true Returns
 function checkExt($file,$changExt=false){
     if (strstr($file,'<') || strstr($file,'>') || $file=='') {
         return 0;
@@ -106,7 +106,7 @@ function checkExt($file,$changExt=false){
     $not_allow = $GLOBALS['auth']['ext_not_allow'];
     $ext_arr = explode('|',$not_allow);
     foreach ($ext_arr as $current) {
-        if ($current !== '' && stristr($file,'.'.$current)){//含有扩展名
+        if ($current !== '' && stristr($file,'.'.$current)){//Containing extension
             return 0;
         }
     }
@@ -116,7 +116,7 @@ function checkExt($file,$changExt=false){
 
 function get_charset(&$str) {
     if ($str == '') return 'utf-8';
-    //前面检测成功则，自动忽略后面
+    //The success of the previously detected automatically ignore the back
     $charset=strtolower(mb_detect_encoding($str,$GLOBALS['config']['check_charset']));
     if (substr($str,0,3)==chr(0xEF).chr(0xBB).chr(0xBF)){
         $charset='utf-8';
@@ -149,14 +149,15 @@ function php_env_check(){
     return $error;
 }
 
-//语言包加载：优先级：cookie获取>自动识别
-//首次没有cookie则自动识别——存入cookie,过期时间无限
+//Language Packs load: Priority: cookie Gets> Automatic Identification
+//No cookie first recognized automatically - into the cookie, the expiration time Unlimited
 function init_lang(){
     if (isset($_COOKIE['kod_user_language'])) {
-        $lang = $_COOKIE['kod_user_language'];
-    }else{//没有cookie
+        $lang=$_COOKIE['kod_user_language'];
+    }else{//No cookie
         preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches);
-        $lang = $matches[1];
+        $lang=$matches[1];
+
         switch (substr($lang,0,2)) {
             case 'zh':
                 if ($lang != 'zn-TW'){
@@ -179,7 +180,7 @@ function init_lang(){
 
 function init_setting(){
     $setting_file = USER_SYSTEM.'system_setting.php';
-    if (!file_exists($setting_file)){//不存在则建立
+    if (!file_exists($setting_file)){//It does not exist
         $setting = $GLOBALS['config']['setting_system_default'];
         $setting['menu'] = $GLOBALS['config']['setting_menu_default'];
         fileCache::save($setting_file,$setting);
@@ -193,8 +194,8 @@ function init_setting(){
         $setting['menu'] = $GLOBALS['config']['setting_menu_default'];
     }
 
-    $GLOBALS['app']->setDefaultController($setting['first_in']);//设置默认控制器
-    $GLOBALS['app']->setDefaultAction('index');    //设置默认控制器函数
+    $GLOBALS['app']->setDefaultController($setting['first_in']);//Set the default controller
+    $GLOBALS['app']->setDefaultAction('index');    //Set the default controller function
 
     $GLOBALS['config']['setting_system'] = $setting;//全局
     $GLOBALS['L']['kod_name'] = $setting['system_name'];
@@ -203,26 +204,26 @@ function init_setting(){
         $GLOBALS['L']['kod_power_by'] = $setting['powerby'];
     }
 
-    //加载用户自定义配置
+    //Customized load
     $setting_user = BASIC_PATH.'config/setting_user.php';
     if (file_exists($setting_user)) {
         include($setting_user);
     }
 }
 
-//防止恶意请求
+//Preventing malicious requests
 function check_post_many(){
     $check_time = 4;
-    $maxt_num   = 40;//5秒内最大请求次数。超过则自动退出
+    $maxt_num   = 40;//The maximum number of times a request within 5 seconds. More than the automatic withdrawal
     $total_time = 60;//10nmin
     $total_time_num = 500;
     
-    //管理员不受限制
+    //Unrestricted administrator
     if( isset($_SESSION['kod_user']) && 
         $_SESSION['kod_user']['role']=='root'){
         return;
     }
-    //上传不受限制
+    //Upload unlimited
     $URI = $GLOBALS['in']['URLremote'];
     if (isset($URI[1]) && $URI[1] =='fileUpload') {
         return;
@@ -233,21 +234,21 @@ function check_post_many(){
         $_SESSION[$session_key] = array('last_time'=>time(),'total_num'=>0,'max_time'=>time(),'max_num'=>0);
     }else{
         $info = $_SESSION[$session_key]; 
-        //----短期内并发控制       
-        if (time()-$info['last_time'] >=$check_time) {//大于时长s 则清空
+        //---- Short term concurrency control     
+        if (time()-$info['last_time'] >=$check_time) {//Greater than the length s Empty
             $info = array('last_time'=>time(),'total_num'=>0,'max_time'=>time(),'max_num'=>0);
         }else{
-            if ($info['total_num'] >=$maxt_num) {//大于100次则直接退出
+            if ($info['total_num'] >=$maxt_num) {//100 times greater than the exit
                 user_logout();
             }else{
                 $info['total_num'] +=1;
             }
         }
-        //----总量控制
-        if (time()-$info['max_time'] >=$total_time) {//大于时长s 则清空
+        //----Total control
+        if (time()-$info['max_time'] >=$total_time) {//Greater than the length s Empty
             $info = array('last_time'=>time(),'total_num'=>0,'max_time'=>time(),'max_num'=>0);
         }else{
-            if ($info['total_num'] >=$total_time_num) {//大于100次则直接退出
+            if ($info['total_num'] >=$total_time_num) {//100 times greater than the exit
                 user_logout();
             }else{
                 $info['max_num'] +=1;

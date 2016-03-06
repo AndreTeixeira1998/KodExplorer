@@ -1,5 +1,5 @@
 <?php
-$L = array(
+$L=array(
 	"upload_clear"  			=>'clear',
 	"upload_setting"  			=>"setting",
 	"upload_tips"  				=>'use piecewise upload, no longer limited to php.ini;',
@@ -57,7 +57,7 @@ $L = array(
 	"recycle_clear_info"   		=> "are you sure clear recycle bin?",
 	"recycle_remove"   			=> "delete",
 	"fav_remove"   			  	=> "Cancle fav",
-	"remove_item"  			  	=> "item",//删除3项内容 （3 item）
+	"remove_item"  			  	=> "item",
 	"uploading"  			  	=>"uploading",
 	'show_file'  			  	=>"new page preview",
 	"unknow_file_title"  		=>"file open tip!",
